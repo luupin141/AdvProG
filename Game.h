@@ -1,5 +1,5 @@
-#ifndef Game_hpp
-#define Game_hpp
+#ifndef Game_h
+#define Game_h
 
 #include<SDL.h>
 #include<SDL_image.h>
@@ -10,7 +10,7 @@ public:
     Game();
     ~Game();
 
-    void init(const char* title,int posx, int posy, int width, int height, bool fullscreen);
+    void init(const char* title, int width, int height, bool fullscreen);
     void handleEvent();
     void update();
     void render();
@@ -18,7 +18,7 @@ public:
 
     bool running(){return isRunning;}
 private:
-    int cnt=0;
+
     bool isRunning ;
     SDL_Window *window;
     SDL_Renderer *renderer;

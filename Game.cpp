@@ -1,20 +1,22 @@
 #include"Game.h"
 #include"Textures.h"
-SDL_Texture *mCharacterTex;
-SDL_Rect srcR, destR;
+#include "Object.h"
+
+GameObject* player;
+
 Game::Game()
 {
 
 }
 Game::~Game(){}
-void Game::init(const char* title,int posx, int posy, int width, int height, bool fullscreen)
+void Game::init(const char* title, int width, int height, bool fullscreen)
 {
 
     if(SDL_Init(SDL_INIT_EVERYTHING)==0)
     {
         std::cout<<"khoitaothanhcong"<<std::endl;
 
-        window = SDL_CreateWindow(title,posx,posy,width,height,SDL_WINDOW_SHOWN);
+        window = SDL_CreateWindow(title,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,SDL_WINDOW_SHOWN);
         if(window){
             std::cout<<"windowcreated"<<std::endl;
         }
@@ -28,7 +30,8 @@ void Game::init(const char* title,int posx, int posy, int width, int height, boo
 
     }
     else isRunning = false;
-    mCharacterTex = TextureManage::LoadTexture("resource/mainchar.png",renderer);
+    player = new GameObject("mainchar.png",renderer, 0, 0);//create player
+
 }
 void Game::handleEvent()
 {
@@ -45,17 +48,12 @@ void Game::handleEvent()
 }
 void Game::update()
 {
-    cnt++;
-    destR.h=64;
-    destR.w=32;
-    destR.x=cnt;
-    destR.y=cnt;
-    std::cout<<cnt<<std::endl;
+        player->Update();
 }
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer,mCharacterTex,NULL, &destR);
+    player->Render();
     SDL_RenderPresent(renderer);
 }
 void Game::clean()

@@ -1,52 +1,24 @@
-#include "Object.h"
-#include<iostream>
-
-Object::Object()
+#include"Object.h"
+#include"Textures.h"
+GameObject::GameObject(const char* link, SDL_Renderer* ren, int x, int y)
 {
-    _texture = NULL;
-    _rect.x = 0;
-    _rect.y = 0;
-    _rect.w = 0;
-    _rect.h = 0;
+    renderer = ren;
+    objTex = TextureManage::LoadTexture(link,ren);//load object's image
+    xpos = x;
+    ypos = y;
 }
-Object::~Object()
+void GameObject::Update()//update object position and size
 {
-    Free();
+    xpos++;
+    ypos++;
+
+
+    destRect.x = xpos;
+    destRect.y = ypos;
+    destRect.w = 32  ;
+    destRect.h = 32 ;
 }
-bool Object::LoadImg(std::string path, SDL_Renderer* screen)
+void GameObject::Render()//render object position and size
 {
-    SDL_Texture* new_texture = NULL;
-
-    SDL_Surface* load_surface = IMG_Load(path.c_str());
-    if(load_surface!=NULL)
-    {
-        SDL_SetColorKey(load_surface,SDL_TRUE, SDL_MapRGB(load_surface->format,CLK_R,CLK_G,CLK_B));
-        new_texture = SDL_CreateTextureFromSurface(screen, load_surface);
-        if(new_texture!=NULL)
-        {
-            _rect.w= load_surface->w;
-            _rect.h= load_surface->h;
-        }
-
-        SDL_FreeSurface(load_surface);
-
-    }
-    _texture = new_texture;
-
-    return _texture != NULL;
-}
-void Object::Render(SDL_Renderer* des, const SDL_Rect* clip)
-{
-    SDL_Rect renderquad = {_rect.x, _rect.y, _rect.w, _rect.h };
-
-    SDL_RenderCopy(des,_texture,clip, &renderquad);
-
-}
-void Object::Free()
-{
-    SDL_DestroyTexture(_texture);
-        _texture = NULL;
-        _rect.h = 0;
-        _rect.w = 0;
-
+    SDL_RenderCopy(renderer,objTex, NULL, &destRect);
 }
