@@ -1,28 +1,22 @@
-#ifndef MAP_H_
-#define MAP_H_
+#ifndef Map_h
+#define Map_h
 
-#include "Base.h"
-#include "Object.h"
-#define TILE_NUM 10
-class Tiled : public Object
-{
-public :
-    Tiled(){;}
-    ~Tiled(){;}
-};
+#include"Game.h"
 
-class GameMap
-{
-public :
-    GameMap(){;}
-    ~GameMap(){;}
-    void LoadMap(char* path);
-    void LoadTiles(SDL_Renderer* screen);
-    void DrawMap(SDL_Renderer* screen);
-private :
-     Map _map;
-     Tiled _tiles[TILE_NUM];
+class Map{
+public:
+    Map();
+    ~Map();
+
+    void LoadMap(int arr[10][15]);
+    void DrawMap();
+private:
+    SDL_Rect src,dest;
+    SDL_Texture* grass;
+    SDL_Texture* water;
+    SDL_Texture* dirt;
+    int map[10][15];
 
 };
 
-#endif // MAP_H_
+#endif // Map_h
