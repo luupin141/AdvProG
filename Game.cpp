@@ -1,8 +1,19 @@
 #include"Game.h"
 #include"Textures.h"
 #include "Object.h"
+#include "Map.h"
+#include "ECS.h"
+#include "Components.h"
 
+//init elements
 GameObject* player;
+SDL_Renderer* Game::renderer = nullptr ;
+Map* map;
+
+Manager manager;
+auto& newPlayer(manager.addEntity());
+
+
 
 Game::Game()
 {
@@ -23,14 +34,18 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
         renderer = SDL_CreateRenderer(window,-1,0);
         if(renderer)
         {
-            SDL_SetRenderDrawColor(renderer, 255, 255, 0, 0);
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
             std::cout<<"renderercreated"<<std::endl;
         }
         isRunning = true;
 
     }
     else isRunning = false;
-    player = new GameObject("mainchar.png",renderer, 0, 0);//create player
+    player = new GameObject("mainchar.png", 0, 0);//create player
+    map = new Map();//create map
+
+    newPlayer.addComponent<PositionComponent>();
+
 
 }
 void Game::handleEvent()
@@ -49,10 +64,14 @@ void Game::handleEvent()
 void Game::update()
 {
         player->Update();
+        manager.update();
+        std::cout << newPlayer.getComponent<PositionComponent>().x()<< "," << newPlayer.getComponent<PositionComponent>().y()<< std::endl;
+
 }
 void Game::render()
 {
     SDL_RenderClear(renderer);
+    map->DrawMap();
     player->Render();
     SDL_RenderPresent(renderer);
 }
