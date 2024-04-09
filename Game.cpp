@@ -6,15 +6,24 @@
 #include "Components.h"
 #include "Vector2D.h"
 #include "KeyboardHandling.h"
+#include "Collision.h"
 
 //init elements
 
 SDL_Renderer* Game::renderer = nullptr ;
 Map* map;
 Manager manager;
-auto& player(manager.addEntity());
+
 SDL_Event Game::event;
 
+std::vector <ColliderComponent*> Game::colliders;
+
+auto& player(manager.addEntity());
+auto& obstacle(manager.addEntity());
+auto& tile0(manager.addEntity());
+auto& tile1(manager.addEntity());
+auto& tile2(manager.addEntity());
+auto& tile3(manager.addEntity());
 
 Game::Game()
 {
@@ -45,9 +54,20 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
     map = new Map();//create map
 
+    tile0.addComponent<TileComponent>(200,200,32,32,0);
+    tile1.addComponent<TileComponent>(250,200,32,32,0);
+    tile2.addComponent<TileComponent>(250,250,32,32,0);
+
+
+
     player.addComponent<TransformComponent>();
     player.addComponent<SpriteComponent>("mainchar.png");
     player.addComponent<KeyboardHandling>();
+    player.addComponent<ColliderComponent>("player");
+
+    obstacle.addComponent<TransformComponent>(300.0f,300.0f, 300, 20, 1);
+    obstacle.addComponent<SpriteComponent>("dirt.png");
+    obstacle.addComponent<ColliderComponent>("obstacle");
 
 }
 void Game::handleEvent()
@@ -63,16 +83,14 @@ void Game::handleEvent()
             break;
     }
 }
-void Game::update()
-{
-        manager.refresh();
-        manager.update();
-        if(player.getComponent<TransformComponent>().position.x>100)
-        {
-            player.getComponent<SpriteComponent>().setTex("mainchar2.png");
-        }
-
-
+void Game::update() {
+	Vector2D playerPos = player.getComponent<TransformComponent>().position;
+	manager.refresh();
+	manager.update();
+	if (Collision::AABB(player.getComponent<ColliderComponent>().collider, obstacle.getComponent<ColliderComponent>().collider)) {
+		player.getComponent<TransformComponent>().position = playerPos;
+		std::cout << "Collision!" << std::endl;
+	}
 }
 void Game::render()
 {
