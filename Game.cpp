@@ -1,18 +1,19 @@
 #include"Game.h"
 #include"Textures.h"
-#include "Object.h"
+
 #include "Map.h"
 #include "ECS.h"
 #include "Components.h"
+#include "Vector2D.h"
+#include "KeyboardHandling.h"
 
 //init elements
-GameObject* player;
+
 SDL_Renderer* Game::renderer = nullptr ;
 Map* map;
-
 Manager manager;
-auto& newPlayer(manager.addEntity());
-
+auto& player(manager.addEntity());
+SDL_Event Game::event;
 
 
 Game::Game()
@@ -41,18 +42,19 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
     }
     else isRunning = false;
-    player = new GameObject("mainchar.png", 0, 0);//create player
+
     map = new Map();//create map
 
-    newPlayer.addComponent<PositionComponent>();
-
+    player.addComponent<TransformComponent>();
+    player.addComponent<SpriteComponent>("mainchar.png");
+    player.addComponent<KeyboardHandling>();
 
 }
 void Game::handleEvent()
 {
-    SDL_Event e;
-    SDL_PollEvent(&e);
-    switch(e.type)
+
+    SDL_PollEvent(&event);
+    switch(event.type)
     {
         case SDL_QUIT:
             isRunning = false;
@@ -63,16 +65,20 @@ void Game::handleEvent()
 }
 void Game::update()
 {
-        player->Update();
+        manager.refresh();
         manager.update();
-        std::cout << newPlayer.getComponent<PositionComponent>().x()<< "," << newPlayer.getComponent<PositionComponent>().y()<< std::endl;
+        if(player.getComponent<TransformComponent>().position.x>100)
+        {
+            player.getComponent<SpriteComponent>().setTex("mainchar2.png");
+        }
+
 
 }
 void Game::render()
 {
     SDL_RenderClear(renderer);
     map->DrawMap();
-    player->Render();
+    manager.draw();
     SDL_RenderPresent(renderer);
 }
 void Game::clean()
