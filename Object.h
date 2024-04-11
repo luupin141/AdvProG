@@ -1,22 +1,23 @@
-#ifndef OBJECT_H_
-#define OBJECT_H_
+#ifndef Object_h
+#define Object_h
 
-#include "Base.h"
+#include "Game.h"
+class GameObject
+{
+public:
+    GameObject(const char* link, int x, int y);
+    ~GameObject();
 
-class Object{
-    public:
-        Object();
-        ~Object();
-        void SetRect(const int& x, const int& y){_rect.x=x,_rect.y=y;}
-        SDL_Rect GetRect() {return _rect;}
-        SDL_Texture* GetObj(){return _texture;}
-        bool LoadImg(std::string path, SDL_Renderer* screen);
-        void Render(SDL_Renderer* des, const SDL_Rect* clip = NULL);
-        void Free();
+    void Update();
+    void Render();
+private:
+    int xpos, ypos;
+    SDL_Texture* objTex;
+    SDL_Rect srcRect,destRect;
+    //srcRect adjust source image to load into texture
+    //destRect adjust texture's position and size on window
 
-    protected:
-        SDL_Texture* _texture;
-        SDL_Rect _rect;
+
 };
 
-#endif // OBJECT_H_
+#endif // Object_h

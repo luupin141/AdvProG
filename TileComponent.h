@@ -16,6 +16,8 @@ public:
     int tileID;
     char* path;
 
+
+
     TileComponent() = default;
 
     TileComponent(int x, int y, int w, int h, int id)
@@ -49,7 +51,7 @@ public:
 
     void init() override
     {
-        entity->addComponent<TransformComponent>(tileRect.x,tileRect.y,tileRect.w, tileRect.h, 1);
+        entity->addComponent<TransformComponent>((double)tileRect.x,(double)tileRect.y,tileRect.w, tileRect.h, 1);
         trans = &entity->getComponent<TransformComponent>();
 
         entity->addComponent<SpriteComponent>(path);

@@ -7,6 +7,7 @@
 #include "Vector2D.h"
 #include "KeyboardHandling.h"
 #include "Collision.h"
+#include "Gravity.h"
 
 //init elements
 
@@ -19,12 +20,10 @@ SDL_Event Game::event;
 std::vector <ColliderComponent*> Game::colliders;
 
 auto& player(manager.addEntity());
-auto& obstacle(manager.addEntity());
-auto& tile0(manager.addEntity());
-auto& tile1(manager.addEntity());
-auto& tile2(manager.addEntity());
-auto& tile3(manager.addEntity());
-
+auto& botBorder(manager.addEntity());
+auto& leftBorder(manager.addEntity());
+auto& topBorder(manager.addEntity());
+auto& rightBorder(manager.addEntity());
 Game::Game()
 {
 
@@ -54,21 +53,24 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
     map = new Map();//create map
 
-    tile0.addComponent<TileComponent>(200,200,32,32,0);
-    tile1.addComponent<TileComponent>(250,200,32,32,0);
-    tile2.addComponent<TileComponent>(250,250,32,32,0);
-
-
-
-    player.addComponent<TransformComponent>();
+    player.addComponent<TransformComponent>(50,50,32,32,1);
     player.addComponent<SpriteComponent>("mainchar.png");
     player.addComponent<KeyboardHandling>();
     player.addComponent<ColliderComponent>("player");
+    player.addComponent<Gravity>(0,1);
 
-    obstacle.addComponent<TransformComponent>(300.0f,300.0f, 300, 20, 1);
-    obstacle.addComponent<SpriteComponent>("dirt.png");
-    obstacle.addComponent<ColliderComponent>("obstacle");
+    botBorder.addComponent<TransformComponent>(0,gHeight-16,16,gWidth,1);
+    botBorder.addComponent<SpriteComponent>("dirt.png");
+    botBorder.addComponent<ColliderComponent>("botBorder");
 
+    leftBorder.addComponent<TransformComponent>(0,0, gHeight, 16, 1);
+    leftBorder.addComponent<SpriteComponent>("dirt.png");
+    leftBorder.addComponent<ColliderComponent>("lBorder");
+
+
+    topBorder.addComponent<TransformComponent>(0,0,16,gWidth,1);
+    topBorder.addComponent<SpriteComponent>("dirt.png");
+    topBorder.addComponent<ColliderComponent>("lBorder");
 }
 void Game::handleEvent()
 {
@@ -87,7 +89,10 @@ void Game::update() {
 	Vector2D playerPos = player.getComponent<TransformComponent>().position;
 	manager.refresh();
 	manager.update();
-	if (Collision::AABB(player.getComponent<ColliderComponent>().collider, obstacle.getComponent<ColliderComponent>().collider)) {
+
+	if (  Collision::AABB(player.getComponent<ColliderComponent>().collider, botBorder.getComponent<ColliderComponent>().collider)
+        ||Collision::AABB(player.getComponent<ColliderComponent>().collider,leftBorder.getComponent<ColliderComponent>().collider)
+        ||Collision::AABB(player.getComponent<ColliderComponent>().collider,topBorder.getComponent<ColliderComponent>().collider)) {
 		player.getComponent<TransformComponent>().position = playerPos;
 		std::cout << "Collision!" << std::endl;
 	}
@@ -95,7 +100,6 @@ void Game::update() {
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    map->DrawMap();
     manager.draw();
     SDL_RenderPresent(renderer);
 }
@@ -105,4 +109,9 @@ void Game::clean()
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
     std::cout<<"gamecleaned"<<std::endl;
+}
+void Game::addTile(int id, int x, int y)
+{
+        auto& tile(manager.addEntity());
+        tile.addComponent<TileComponent>(x, y, 32, 32, id);
 }

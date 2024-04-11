@@ -6,6 +6,10 @@
 #include<iostream>
 #include<vector>
 
+
+const int gHeight= 320;
+const int gWidth = 640;
+
 class ColliderComponent;
 
 
@@ -22,12 +26,14 @@ public:
     void clean();
 
     bool running(){return isRunning;}
+
+    static void addTile(int x, int y, int id);
     static SDL_Renderer *renderer;
     static SDL_Event event;
     static std::vector<ColliderComponent*> colliders;
 private:
 
-    bool isRunning ;
+    bool isRunning;
     SDL_Window *window;
 
 

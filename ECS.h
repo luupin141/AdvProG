@@ -1,3 +1,4 @@
+
 #ifndef ECS_h
 #define ECS_h
 #include<iostream>
@@ -20,6 +21,7 @@ inline ComponentID getComponentTypeID()
 
 template <typename T> inline ComponentID getComponentTypeID() noexcept
 {
+    static_assert (std::is_base_of<Component, T>::value, "");
     static ComponentID typeID = getComponentTypeID();
     return typeID;
 }
@@ -53,16 +55,18 @@ public:
     void update()
     {
         for(auto& c : components) c->update();
-        for(auto& c : components) c->draw();
+
 
     }
-    void draw(){}
-    bool isActive()const {return active;}
-    void destroy() {active = false;}
+    void draw(){
+        for(auto& c : components) c->draw();
+        }
+    bool isActive() const {return active;}
+    void destroy() { active = false; }
 
     template <typename T> bool hasComponent() const
     {
-        return componentBitSet[getComponentTypeID<T>];
+        return componentBitSet[getComponentTypeID<T>()];
     }
 
     template <typename T, typename... TArgs>

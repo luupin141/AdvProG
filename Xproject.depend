@@ -1,8 +1,6 @@
 # depslib dependency file v1.0
-1710783649 source:c:\users\admin\desktop\new folder\advprog\xproject\main.cpp
-	"Base.h"
-	"Object.h"
-	"Map.h"
+1712820065 source:c:\users\admin\desktop\new folder\advprog\xproject\main.cpp
+	"Game.h"
 
 1709678320 c:\users\admin\desktop\sdl source\sdl2-2.30.1\i686-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -420,7 +418,7 @@
 1710643001 source:c:\users\admin\desktop\new folder\advprog\xproject\base.cpp
 	"Base.h"
 
-1710775101 c:\users\admin\desktop\new folder\advprog\xproject\base.h
+1710936979 c:\users\admin\desktop\new folder\advprog\xproject\base.h
 	<iostream>
 	<string>
 	<SDL.h>
@@ -428,14 +426,126 @@
 	<SDL_image.h>
 	<SDL_ttf.h>
 
-1710650040 source:c:\users\admin\desktop\new folder\advprog\xproject\object.cpp
+1712459026 source:c:\users\admin\desktop\new folder\advprog\xproject\object.cpp
 	"Object.h"
+	"Textures.h"
+
+1712459014 c:\users\admin\desktop\new folder\advprog\xproject\object.h
+	"Game.h"
+
+1712812992 c:\users\admin\desktop\new folder\advprog\xproject\map.h
+	"string"
+	"Game.h"
+
+1712812992 source:c:\users\admin\desktop\new folder\advprog\xproject\map.cpp
+	"Map.h"
+	"fstream"
+	"Game.h"
+
+1712820065 c:\users\admin\desktop\new folder\advprog\xproject\game.h
+	<SDL.h>
+	<SDL_image.h>
+	<iostream>
+	<vector>
+
+1712824521 source:c:\users\admin\desktop\new folder\advprog\xproject\game.cpp
+	"Game.h"
+	"Textures.h"
+	"Map.h"
+	"ECS.h"
+	"Components.h"
+	"Vector2D.h"
+	"KeyboardHandling.h"
+	"Collision.h"
+	"Gravity.h"
+
+1711783828 c:\users\admin\desktop\new folder\advprog\xproject\textures.h
+	"Game.h"
+
+1712597019 source:c:\users\admin\desktop\new folder\advprog\xproject\textures.cpp
+	"Textures.h"
+	"Object.h"
+
+1711591859 source:c:\users\admin\desktop\new folder\advprog\xproject\c&h\game.cpp
+	"Game.h"
+	"Textures.h"
+
+1711591859 c:\users\admin\desktop\new folder\advprog\xproject\c&h\game.h
+	<SDL.h>
+	<SDL_image.h>
 	<iostream>
 
-1710649607 c:\users\admin\desktop\new folder\advprog\xproject\object.h
-	"Base.h"
+1711591872 c:\users\admin\desktop\new folder\advprog\xproject\c&h\textures.h
+	"Game.h"
 
-1710775177 c:\users\admin\desktop\new folder\advprog\xproject\map.h
-	"Base.h"
-	"Object.h"
+1711591884 source:c:\users\admin\desktop\new folder\advprog\xproject\c&h\textures.cpp
+	"Textures.h"
+
+1712463633 c:\users\admin\desktop\new folder\advprog\xproject\ecs.h
+	<iostream>
+	<vector>
+	<memory>
+	<algorithm>
+	<bitset>
+	<array>
+
+1712679278 c:\users\admin\desktop\new folder\advprog\xproject\components.h
+	"ECS.h"
+	"TransformComponent.h"
+	"SpriteComponent.h"
+	"ColiderComponent.h"
+	"TileComponent.h"
+
+1712391125 c:\users\admin\desktop\new folder\advprog\xproject\componentposition.h
+	"Components.h"
+
+1712396400 c:\users\admin\desktop\new folder\advprog\xproject\componentsprite.h
+	"Components.h"
+	"SDL.h"
+
+1712464625 c:\users\admin\desktop\new folder\advprog\xproject\positioncomponent.h
+	"Components.h"
+
+1712644981 c:\users\admin\desktop\new folder\advprog\xproject\spritecomponent.h
+	"Components.h"
+	"Textures.h"
+	"SDL.h"
+
+1712820456 c:\users\admin\desktop\new folder\advprog\xproject\transformcomponent.h
+	"Components.h"
+	"Vector2D.h"
+
+1712668595 source:c:\users\admin\desktop\new folder\advprog\xproject\vector2d.cpp
+	"Vector2D.h"
+
+1712656057 c:\users\admin\desktop\new folder\advprog\xproject\vector2d.h
+	<iostream>
+
+1712824173 c:\users\admin\desktop\new folder\advprog\xproject\keyboardhandling.h
+	"Game.h"
+	"ECS.h"
+	"Components.h"
+
+1712819543 source:c:\users\admin\desktop\new folder\advprog\xproject\collision.cpp
+	"Collision.h"
+	"ColiderComponent.h"
+
+1712650347 c:\users\admin\desktop\new folder\advprog\xproject\collision.h
+	<SDL.h>
+
+1712718996 c:\users\admin\desktop\new folder\advprog\xproject\colidercomponent.h
+	"string"
+	"SDL.h"
+	"Components.h"
+	"vector"
+
+1712718927 c:\users\admin\desktop\new folder\advprog\xproject\tilecomponent.h
+	"ECS.h"
+	"TransformComponent.h"
+	"SpriteComponent.h"
+	"SDL.h"
+
+1712822122 c:\users\admin\desktop\new folder\advprog\xproject\gravity.h
+	"Components.h"
+	"Vector2D.h"
 

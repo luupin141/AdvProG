@@ -1,5 +1,7 @@
 #include "Game.h"
 #undef main
+
+
 Game *game = nullptr;
 const int FPS = 60;//adjust framerate
 const int frameDelay = 1000/FPS;
@@ -10,7 +12,7 @@ int main(int argc, const char ** argv)
 {
 
     game = new Game();
-    game->init("X", 600, 600, SDL_WINDOW_SHOWN);//initialize
+    game->init("X", gWidth, gHeight, SDL_WINDOW_SHOWN);//initialize
     //game loop
     while(game->running()){
 

@@ -11,7 +11,6 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -31,6 +30,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=gnu++14" />
 			<Add directory="../../../SDL source/SDL2-2.30.1/i686-w64-mingw32/include/SDL2" />
 			<Add directory="../../../SDL source/SDL2_image-2.8.2/i686-w64-mingw32/include/SDL2" />
 			<Add directory="../../../SDL source/SDL2_mixer-2.8.0/i686-w64-mingw32/include/SDL2" />
@@ -43,11 +43,27 @@
 			<Add directory="../../../SDL source/SDL2_mixer-2.8.0/i686-w64-mingw32/lib" />
 			<Add directory="../../../SDL source/SDL2_ttf-2.22.0/i686-w64-mingw32/lib" />
 		</Linker>
-		<Unit filename="Base.cpp" />
-		<Unit filename="Base.h" />
+		<Unit filename="ColiderComponent.h" />
+		<Unit filename="Collision.cpp" />
+		<Unit filename="Collision.h" />
+		<Unit filename="Components.h" />
+		<Unit filename="ECS.h" />
+		<Unit filename="Game.cpp" />
+		<Unit filename="Game.h" />
+		<Unit filename="Gravity.h" />
+		<Unit filename="KeyboardHandling.h" />
 		<Unit filename="Main.cpp" />
+		<Unit filename="Map.cpp" />
+		<Unit filename="Map.h" />
 		<Unit filename="Object.cpp" />
 		<Unit filename="Object.h" />
+		<Unit filename="SpriteComponent.h" />
+		<Unit filename="Textures.cpp" />
+		<Unit filename="Textures.h" />
+		<Unit filename="TileComponent.h" />
+		<Unit filename="TransformComponent.h" />
+		<Unit filename="Vector2D.cpp" />
+		<Unit filename="Vector2D.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
