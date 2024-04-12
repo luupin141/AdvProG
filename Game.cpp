@@ -8,7 +8,7 @@
 #include "KeyboardHandling.h"
 #include "Collision.h"
 #include "Gravity.h"
-
+bool onGround = 0;
 //init elements
 
 SDL_Renderer* Game::renderer = nullptr ;
@@ -19,16 +19,20 @@ SDL_Event Game::event;
 
 std::vector <ColliderComponent*> Game::colliders;
 
+auto& background(manager.addEntity());
 auto& player(manager.addEntity());
 auto& botBorder(manager.addEntity());
 auto& leftBorder(manager.addEntity());
 auto& topBorder(manager.addEntity());
 auto& rightBorder(manager.addEntity());
+auto& spring(manager.addEntity());
+
 Game::Game()
 {
 
 }
 Game::~Game(){}
+
 void Game::init(const char* title, int width, int height, bool fullscreen)
 {
 
@@ -53,11 +57,14 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
     map = new Map();//create map
 
+    background.addComponent<TransformComponent>(0, 0, gHeight, gWidth,1);
+    background.addComponent<SpriteComponent>("background.png");
+
     player.addComponent<TransformComponent>(50,50,32,32,1);
-    player.addComponent<SpriteComponent>("mainchar.png");
+    player.addComponent<SpriteComponent>("player.png",1);
     player.addComponent<KeyboardHandling>();
     player.addComponent<ColliderComponent>("player");
-    player.addComponent<Gravity>(0,1);
+    player.addComponent<Gravity>(0,2);
 
     botBorder.addComponent<TransformComponent>(0,gHeight-16,16,gWidth,1);
     botBorder.addComponent<SpriteComponent>("dirt.png");
@@ -71,6 +78,12 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     topBorder.addComponent<TransformComponent>(0,0,16,gWidth,1);
     topBorder.addComponent<SpriteComponent>("dirt.png");
     topBorder.addComponent<ColliderComponent>("lBorder");
+
+    spring.addComponent<TransformComponent>(64,gHeight-16,16,16,1);
+    spring.addComponent<SpriteComponent>("grass.png");
+    spring.addComponent<ColliderComponent>("fire");
+
+
 }
 void Game::handleEvent()
 {
@@ -86,16 +99,21 @@ void Game::handleEvent()
     }
 }
 void Game::update() {
-	Vector2D playerPos = player.getComponent<TransformComponent>().position;
+
+	Vector2D playerPos = player.getComponent<TransformComponent>().position  ;
 	manager.refresh();
 	manager.update();
 
+
 	if (  Collision::AABB(player.getComponent<ColliderComponent>().collider, botBorder.getComponent<ColliderComponent>().collider)
-        ||Collision::AABB(player.getComponent<ColliderComponent>().collider,leftBorder.getComponent<ColliderComponent>().collider)
+
         ||Collision::AABB(player.getComponent<ColliderComponent>().collider,topBorder.getComponent<ColliderComponent>().collider)) {
-		player.getComponent<TransformComponent>().position = playerPos;
+		Jumpable =1;
+		onGround = 1;
+		player.getComponent<TransformComponent>().position = playerPos ;
 		std::cout << "Collision!" << std::endl;
 	}
+	else onGround = 0;
 }
 void Game::render()
 {
@@ -109,9 +127,4 @@ void Game::clean()
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
     std::cout<<"gamecleaned"<<std::endl;
-}
-void Game::addTile(int id, int x, int y)
-{
-        auto& tile(manager.addEntity());
-        tile.addComponent<TileComponent>(x, y, 32, 32, id);
 }
