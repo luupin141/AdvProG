@@ -9,17 +9,19 @@ class SpriteComponent : public Component
 {
 private:
     TransformComponent *trans;
-    SDL_Texture *tex;
+
     SDL_Rect srcR, destR;
     bool animated = 0;
     int frames = 0;
     int speed = 100;
 
 public:
-
+    SDL_Texture *tex;
     int animaIndex = 0;
 
     std::map<const char *, Anima> animations;
+
+    SDL_RendererFlip spriteflip = SDL_FLIP_NONE;
 
     SpriteComponent() = default;
     SpriteComponent(const char* path)
@@ -30,8 +32,8 @@ public:
     {
         animated = isAnimated;
 
-        Anima idle = Anima(0,8,100);
-        Anima walk = Anima(1,8,100);
+        Anima idle = Anima(0,6,100);
+        Anima walk = Anima(1,6,100);
 
         animations.emplace("Idle", idle);
         animations.emplace("Walk", walk);
@@ -59,7 +61,9 @@ public:
     }
     void update() override
     {
-        if(animated) srcR.x = srcR.w* static_cast<int>((SDL_GetTicks()/speed)%frames);
+
+
+        if(animated) srcR.x = srcR.w * (int)((SDL_GetTicks()/speed)%frames);
 
         srcR.y = animaIndex * trans->height;
         destR.x = trans->position.x;
@@ -70,7 +74,7 @@ public:
     }
     void draw() override
     {
-        TextureManage::Draw(tex,srcR,destR);
+        TextureManage::Draw(tex,srcR,destR,spriteflip);
     }
     void Play(const char* animaName)
     {

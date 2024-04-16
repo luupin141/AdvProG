@@ -43,6 +43,7 @@
 			<Add directory="../../../SDL source/SDL2_mixer-2.8.0/i686-w64-mingw32/lib" />
 			<Add directory="../../../SDL source/SDL2_ttf-2.22.0/i686-w64-mingw32/lib" />
 		</Linker>
+		<Unit filename="Anima.h" />
 		<Unit filename="ColiderComponent.h" />
 		<Unit filename="Collision.cpp" />
 		<Unit filename="Collision.h" />
@@ -55,6 +56,7 @@
 		<Unit filename="Main.cpp" />
 		<Unit filename="Map.cpp" />
 		<Unit filename="Map.h" />
+		<Unit filename="MouseHandling.h" />
 		<Unit filename="Object.cpp" />
 		<Unit filename="Object.h" />
 		<Unit filename="SpriteComponent.h" />

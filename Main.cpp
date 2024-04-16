@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "ECS.h"
+#include "Components.h"
 #undef main
 
 
@@ -18,7 +20,8 @@ int main(int argc, const char ** argv)
 
         frameStart = SDL_GetTicks();
 
-        game->handleEvent();
+        game->handleEvent()
+        ;
         game->update();
         game->render();
 

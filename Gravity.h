@@ -33,6 +33,7 @@ class Gravity : public Component
     void update() override
     {
         trans->velocity.y += gravity.y;
+        SDL_Delay(10);
     }
 };
 #endif // Gravity_h

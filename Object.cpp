@@ -18,6 +18,7 @@ void GameObject::Update()//update object position and size
     destRect.w = 32  ;
     destRect.h = 32 ;
 }
+
 void GameObject::Render()//render object position and size
 {
     SDL_RenderCopy(Game::renderer,objTex, NULL, &destRect);

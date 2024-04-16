@@ -8,7 +8,7 @@
 #include "KeyboardHandling.h"
 #include "Collision.h"
 #include "Gravity.h"
-bool onGround = 0;
+
 //init elements
 
 SDL_Renderer* Game::renderer = nullptr ;
@@ -26,7 +26,9 @@ auto& leftBorder(manager.addEntity());
 auto& topBorder(manager.addEntity());
 auto& rightBorder(manager.addEntity());
 auto& spring(manager.addEntity());
-
+auto& sur1(manager.addEntity());
+auto& sur2(manager.addEntity());
+auto& pwup(manager.addEntity());
 Game::Game()
 {
 
@@ -64,26 +66,36 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     player.addComponent<SpriteComponent>("player.png",1);
     player.addComponent<KeyboardHandling>();
     player.addComponent<ColliderComponent>("player");
-    player.addComponent<Gravity>(0,2);
+
 
     botBorder.addComponent<TransformComponent>(0,gHeight-16,16,gWidth,1);
-    botBorder.addComponent<SpriteComponent>("dirt.png");
+
     botBorder.addComponent<ColliderComponent>("botBorder");
 
     leftBorder.addComponent<TransformComponent>(0,0, gHeight, 16, 1);
-    leftBorder.addComponent<SpriteComponent>("dirt.png");
+
     leftBorder.addComponent<ColliderComponent>("lBorder");
 
 
     topBorder.addComponent<TransformComponent>(0,0,16,gWidth,1);
-    topBorder.addComponent<SpriteComponent>("dirt.png");
+
     topBorder.addComponent<ColliderComponent>("lBorder");
 
     spring.addComponent<TransformComponent>(64,gHeight-16,16,16,1);
     spring.addComponent<SpriteComponent>("grass.png");
     spring.addComponent<ColliderComponent>("fire");
 
+    sur1.addComponent<TransformComponent>(gWidth/2,gHeight-16*5,16,16*5,1);
+    sur1.addComponent<SpriteComponent>("dirt.png");
+    sur1.addComponent<ColliderComponent>("sur1");
 
+    sur2.addComponent<TransformComponent>(gWidth/2+64,gHeight-(16*5)*2,16,16*5,1);
+    sur2.addComponent<SpriteComponent>("dirt.png");
+    sur2.addComponent<ColliderComponent>("sur1");
+
+    pwup.addComponent<TransformComponent>(gWidth/2,gHeight-(16*2),16,16,1);
+    pwup.addComponent<SpriteComponent>("water.png");
+    pwup.addComponent<ColliderComponent>("pwup");
 }
 void Game::handleEvent()
 {
@@ -100,20 +112,26 @@ void Game::handleEvent()
 }
 void Game::update() {
 
-	Vector2D playerPos = player.getComponent<TransformComponent>().position  ;
+	Vector2D playerPos = player.getComponent<TransformComponent>().position ;
 	manager.refresh();
 	manager.update();
-
-
+    if(Collision::AABB(spring.getComponent<ColliderComponent>().collider, player.getComponent<ColliderComponent>().collider))
+    {
+        SDL_DestroyTexture(spring.getComponent<SpriteComponent>().tex);
+    }
+    if(Collision::AABB(pwup.getComponent<ColliderComponent>().collider, player.getComponent<ColliderComponent>().collider))
+    {
+        player.getComponent<TransformComponent>().pace =5;
+    }
 	if (  Collision::AABB(player.getComponent<ColliderComponent>().collider, botBorder.getComponent<ColliderComponent>().collider)
+        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, sur1.getComponent<ColliderComponent>().collider)
+        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, topBorder.getComponent<ColliderComponent>().collider)
+        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, sur2.getComponent<ColliderComponent>().collider)) {
 
-        ||Collision::AABB(player.getComponent<ColliderComponent>().collider,topBorder.getComponent<ColliderComponent>().collider)) {
-		Jumpable =1;
-		onGround = 1;
-		player.getComponent<TransformComponent>().position = playerPos ;
+		player.getComponent<TransformComponent>().position = playerPos;
 		std::cout << "Collision!" << std::endl;
 	}
-	else onGround = 0;
+
 }
 void Game::render()
 {

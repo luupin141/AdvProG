@@ -1,6 +1,8 @@
 # depslib dependency file v1.0
-1712820065 source:c:\users\admin\desktop\new folder\advprog\xproject\main.cpp
+1713267424 source:c:\users\admin\desktop\new folder\advprog\xproject\main.cpp
 	"Game.h"
+	"ECS.h"
+	"Components.h"
 
 1709678320 c:\users\admin\desktop\sdl source\sdl2-2.30.1\i686-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -426,7 +428,7 @@
 	<SDL_image.h>
 	<SDL_ttf.h>
 
-1712459026 source:c:\users\admin\desktop\new folder\advprog\xproject\object.cpp
+1712906478 source:c:\users\admin\desktop\new folder\advprog\xproject\object.cpp
 	"Object.h"
 	"Textures.h"
 
@@ -437,18 +439,18 @@
 	"string"
 	"Game.h"
 
-1712812992 source:c:\users\admin\desktop\new folder\advprog\xproject\map.cpp
+1712897775 source:c:\users\admin\desktop\new folder\advprog\xproject\map.cpp
 	"Map.h"
 	"fstream"
 	"Game.h"
 
-1712820065 c:\users\admin\desktop\new folder\advprog\xproject\game.h
+1713207517 c:\users\admin\desktop\new folder\advprog\xproject\game.h
 	<SDL.h>
 	<SDL_image.h>
 	<iostream>
 	<vector>
 
-1712824521 source:c:\users\admin\desktop\new folder\advprog\xproject\game.cpp
+1713265659 source:c:\users\admin\desktop\new folder\advprog\xproject\game.cpp
 	"Game.h"
 	"Textures.h"
 	"Map.h"
@@ -459,10 +461,10 @@
 	"Collision.h"
 	"Gravity.h"
 
-1711783828 c:\users\admin\desktop\new folder\advprog\xproject\textures.h
+1713114871 c:\users\admin\desktop\new folder\advprog\xproject\textures.h
 	"Game.h"
 
-1712597019 source:c:\users\admin\desktop\new folder\advprog\xproject\textures.cpp
+1713114871 source:c:\users\admin\desktop\new folder\advprog\xproject\textures.cpp
 	"Textures.h"
 	"Object.h"
 
@@ -481,7 +483,7 @@
 1711591884 source:c:\users\admin\desktop\new folder\advprog\xproject\c&h\textures.cpp
 	"Textures.h"
 
-1712463633 c:\users\admin\desktop\new folder\advprog\xproject\ecs.h
+1713109638 c:\users\admin\desktop\new folder\advprog\xproject\ecs.h
 	<iostream>
 	<vector>
 	<memory>
@@ -489,7 +491,7 @@
 	<bitset>
 	<array>
 
-1712679278 c:\users\admin\desktop\new folder\advprog\xproject\components.h
+1713189250 c:\users\admin\desktop\new folder\advprog\xproject\components.h
 	"ECS.h"
 	"TransformComponent.h"
 	"SpriteComponent.h"
@@ -506,10 +508,12 @@
 1712464625 c:\users\admin\desktop\new folder\advprog\xproject\positioncomponent.h
 	"Components.h"
 
-1712644981 c:\users\admin\desktop\new folder\advprog\xproject\spritecomponent.h
+1713265685 c:\users\admin\desktop\new folder\advprog\xproject\spritecomponent.h
 	"Components.h"
+	"Anima.h"
 	"Textures.h"
 	"SDL.h"
+	"map"
 
 1712820456 c:\users\admin\desktop\new folder\advprog\xproject\transformcomponent.h
 	"Components.h"
@@ -521,31 +525,29 @@
 1712656057 c:\users\admin\desktop\new folder\advprog\xproject\vector2d.h
 	<iostream>
 
-1712824173 c:\users\admin\desktop\new folder\advprog\xproject\keyboardhandling.h
+1713201208 c:\users\admin\desktop\new folder\advprog\xproject\keyboardhandling.h
 	"Game.h"
 	"ECS.h"
 	"Components.h"
 
-1712819543 source:c:\users\admin\desktop\new folder\advprog\xproject\collision.cpp
+1713195769 source:c:\users\admin\desktop\new folder\advprog\xproject\collision.cpp
 	"Collision.h"
 	"ColiderComponent.h"
 
-1712650347 c:\users\admin\desktop\new folder\advprog\xproject\collision.h
+1712898374 c:\users\admin\desktop\new folder\advprog\xproject\collision.h
 	<SDL.h>
 
-1712718996 c:\users\admin\desktop\new folder\advprog\xproject\colidercomponent.h
+1712899579 c:\users\admin\desktop\new folder\advprog\xproject\colidercomponent.h
 	"string"
 	"SDL.h"
 	"Components.h"
 	"vector"
 
-1712718927 c:\users\admin\desktop\new folder\advprog\xproject\tilecomponent.h
-	"ECS.h"
-	"TransformComponent.h"
-	"SpriteComponent.h"
-	"SDL.h"
+1712897746 c:\users\admin\desktop\new folder\advprog\xproject\tilecomponent.h
 
-1712822122 c:\users\admin\desktop\new folder\advprog\xproject\gravity.h
+1713189316 c:\users\admin\desktop\new folder\advprog\xproject\gravity.h
 	"Components.h"
 	"Vector2D.h"
+
+1712945531 c:\users\admin\desktop\new folder\advprog\xproject\anima.h
 

@@ -7,8 +7,8 @@
 #include<vector>
 
 
-const int gHeight= 320;
-const int gWidth = 640;
+const int gHeight= 640;
+const int gWidth = 1280 ;
 
 class ColliderComponent;
 
@@ -27,6 +27,7 @@ public:
 
     bool running(){return isRunning;}
 
+
     static void addTile(int x, int y, int id);
     static SDL_Renderer *renderer;
     static SDL_Event event;
@@ -35,6 +36,7 @@ private:
 
     bool isRunning;
     SDL_Window *window;
+
 
 
 };
