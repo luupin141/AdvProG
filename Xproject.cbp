@@ -54,15 +54,12 @@
 		<Unit filename="Gravity.h" />
 		<Unit filename="KeyboardHandling.h" />
 		<Unit filename="Main.cpp" />
-		<Unit filename="Map.cpp" />
-		<Unit filename="Map.h" />
 		<Unit filename="MouseHandling.h" />
 		<Unit filename="Object.cpp" />
 		<Unit filename="Object.h" />
 		<Unit filename="SpriteComponent.h" />
 		<Unit filename="Textures.cpp" />
 		<Unit filename="Textures.h" />
-		<Unit filename="TileComponent.h" />
 		<Unit filename="TransformComponent.h" />
 		<Unit filename="Vector2D.cpp" />
 		<Unit filename="Vector2D.h" />

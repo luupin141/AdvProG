@@ -5,7 +5,6 @@
 #include"TransformComponent.h"
 #include"SpriteComponent.h"
 #include"ColiderComponent.h"
-#include"TileComponent.h"
 
 
 #endif // Components_h

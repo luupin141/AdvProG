@@ -5,6 +5,8 @@
 #include "ECS.h"
 #include "Components.h"
 
+int direction = 0;
+int dashcount=1;
 
 class KeyboardHandling : public Component
 {
@@ -24,25 +26,49 @@ public:
 		trans->velocity.x = 0;
 		trans->velocity.y = 0;
 
+
 		if (keystates[SDL_SCANCODE_UP]) {
 			trans->velocity.y = -1;
 			sprite->Play("Walk");
-
+            direction = 1;
 		}
 		if (keystates[SDL_SCANCODE_LEFT]) {
 			trans->velocity.x = -1;
 			sprite->Play("Walk");
 			sprite->spriteflip = SDL_FLIP_HORIZONTAL;
+			direction = 2;
 		}
 		if (keystates[SDL_SCANCODE_DOWN]) {
 			trans->velocity.y = 1;
 			sprite->Play("Walk");
+			direction = 3;
 		}
 		if (keystates[SDL_SCANCODE_RIGHT]) {
 			trans->velocity.x = 1;
 			sprite->Play("Walk");
 			sprite->spriteflip = SDL_FLIP_NONE;
+			direction = 4;
 		}
+		if (keystates[SDL_SCANCODE_D]&&dashcount!=0)
+        {
+            switch(direction)
+            {
+            case 1:
+                trans->velocity.y=-80;
+                break;
+            case 2:
+                trans->velocity.x=-80;
+                break;
+            case 3:
+                trans->velocity.y=80;
+                break;
+            case 4:
+                trans->velocity.x=80;
+                break;
+            }
+            dashcount --;
+
+        }
 
 		if(Game::event.type == SDL_KEYUP) sprite ->Play("Idle");
 	}

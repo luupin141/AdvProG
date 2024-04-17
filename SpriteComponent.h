@@ -69,7 +69,7 @@ public:
         destR.x = trans->position.x;
         destR.y = trans->position.y;
         destR.h = trans->height * trans->scale;
-        destR.w = trans->width *trans->scale;
+        destR.w = trans->width * trans->scale;
 
     }
     void draw() override
@@ -81,6 +81,10 @@ public:
         frames = animations[animaName].frames;
         animaIndex = animations[animaName].index;
         speed = animations[animaName].speed;
+    }
+    void Free()
+    {
+        SDL_DestroyTexture(tex);
     }
 };
 

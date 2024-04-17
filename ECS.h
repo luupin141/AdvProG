@@ -1,4 +1,3 @@
-
 #ifndef ECS_h
 #define ECS_h
 #include<iostream>
@@ -120,6 +119,7 @@ public:
         entities.emplace_back(std::move(uPtr));
         return *e;
     }
+
 };
 
 

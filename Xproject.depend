@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1713267424 source:c:\users\admin\desktop\new folder\advprog\xproject\main.cpp
+1713379208 source:c:\users\admin\desktop\new folder\advprog\xproject\main.cpp
 	"Game.h"
 	"ECS.h"
 	"Components.h"
@@ -444,22 +444,21 @@
 	"fstream"
 	"Game.h"
 
-1713207517 c:\users\admin\desktop\new folder\advprog\xproject\game.h
+1713381072 c:\users\admin\desktop\new folder\advprog\xproject\game.h
 	<SDL.h>
 	<SDL_image.h>
-	<iostream>
-	<vector>
+	<bits/stdc++.h>
 
-1713265659 source:c:\users\admin\desktop\new folder\advprog\xproject\game.cpp
+1713381056 source:c:\users\admin\desktop\new folder\advprog\xproject\game.cpp
 	"Game.h"
 	"Textures.h"
-	"Map.h"
 	"ECS.h"
 	"Components.h"
 	"Vector2D.h"
 	"KeyboardHandling.h"
 	"Collision.h"
 	"Gravity.h"
+	"vector"
 
 1713114871 c:\users\admin\desktop\new folder\advprog\xproject\textures.h
 	"Game.h"
@@ -483,7 +482,7 @@
 1711591884 source:c:\users\admin\desktop\new folder\advprog\xproject\c&h\textures.cpp
 	"Textures.h"
 
-1713109638 c:\users\admin\desktop\new folder\advprog\xproject\ecs.h
+1713380949 c:\users\admin\desktop\new folder\advprog\xproject\ecs.h
 	<iostream>
 	<vector>
 	<memory>
@@ -491,12 +490,11 @@
 	<bitset>
 	<array>
 
-1713189250 c:\users\admin\desktop\new folder\advprog\xproject\components.h
+1713319083 c:\users\admin\desktop\new folder\advprog\xproject\components.h
 	"ECS.h"
 	"TransformComponent.h"
 	"SpriteComponent.h"
 	"ColiderComponent.h"
-	"TileComponent.h"
 
 1712391125 c:\users\admin\desktop\new folder\advprog\xproject\componentposition.h
 	"Components.h"
@@ -508,7 +506,7 @@
 1712464625 c:\users\admin\desktop\new folder\advprog\xproject\positioncomponent.h
 	"Components.h"
 
-1713265685 c:\users\admin\desktop\new folder\advprog\xproject\spritecomponent.h
+1713369018 c:\users\admin\desktop\new folder\advprog\xproject\spritecomponent.h
 	"Components.h"
 	"Anima.h"
 	"Textures.h"
@@ -525,16 +523,16 @@
 1712656057 c:\users\admin\desktop\new folder\advprog\xproject\vector2d.h
 	<iostream>
 
-1713201208 c:\users\admin\desktop\new folder\advprog\xproject\keyboardhandling.h
+1713371176 c:\users\admin\desktop\new folder\advprog\xproject\keyboardhandling.h
 	"Game.h"
 	"ECS.h"
 	"Components.h"
 
-1713195769 source:c:\users\admin\desktop\new folder\advprog\xproject\collision.cpp
+1713379949 source:c:\users\admin\desktop\new folder\advprog\xproject\collision.cpp
 	"Collision.h"
-	"ColiderComponent.h"
+	"SDL.h"
 
-1712898374 c:\users\admin\desktop\new folder\advprog\xproject\collision.h
+1713379890 c:\users\admin\desktop\new folder\advprog\xproject\collision.h
 	<SDL.h>
 
 1712899579 c:\users\admin\desktop\new folder\advprog\xproject\colidercomponent.h
@@ -550,4 +548,16 @@
 	"Vector2D.h"
 
 1712945531 c:\users\admin\desktop\new folder\advprog\xproject\anima.h
+
+1713379398 source:c:\users\admin\desktop\new folder\advprog\xproject\text.cpp
+	"Text.h"
+	"SDL.h"
+	"SDL_ttf.h"
+	"Game.h"
+
+1713378672 c:\users\admin\desktop\new folder\advprog\xproject\text.h
+	<string>
+	<memory>
+	"SDL.h"
+	"SDL_ttf.h"
 

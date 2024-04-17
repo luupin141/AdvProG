@@ -1,15 +1,12 @@
 #ifndef Game_h
 #define Game_h
-
 #include<SDL.h>
 #include<SDL_image.h>
-#include<iostream>
-#include<vector>
-
+#include<bits/stdc++.h>
 
 const int gHeight= 640;
 const int gWidth = 1280 ;
-
+int score = 100000;
 class ColliderComponent;
 
 
@@ -28,7 +25,7 @@ public:
     bool running(){return isRunning;}
 
 
-    static void addTile(int x, int y, int id);
+
     static SDL_Renderer *renderer;
     static SDL_Event event;
     static std::vector<ColliderComponent*> colliders;

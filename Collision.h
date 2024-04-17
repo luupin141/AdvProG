@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 
-class ColliderComponent;
+
 
 class Collision
 {

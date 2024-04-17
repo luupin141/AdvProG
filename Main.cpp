@@ -10,6 +10,7 @@ const int frameDelay = 1000/FPS;
 Uint32 frameStart;
 int frameTime;
 
+
 int main(int argc, const char ** argv)
 {
 
@@ -19,7 +20,7 @@ int main(int argc, const char ** argv)
     while(game->running()){
 
         frameStart = SDL_GetTicks();
-
+        score -= frameTime;
         game->handleEvent()
         ;
         game->update();
