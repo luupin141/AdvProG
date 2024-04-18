@@ -2,11 +2,13 @@
 #define Game_h
 #include<SDL.h>
 #include<SDL_image.h>
+#include<SDL_mixer.h>
+#include<SDL_ttf.h>
 #include<bits/stdc++.h>
 
 const int gHeight= 640;
 const int gWidth = 1280 ;
-int score = 100000;
+
 class ColliderComponent;
 
 

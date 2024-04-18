@@ -6,7 +6,8 @@
 #include "Components.h"
 
 int direction = 0;
-int dashcount=1;
+int dashCD  = 100;
+int sprintCD = 100;
 
 class KeyboardHandling : public Component
 {
@@ -35,7 +36,7 @@ public:
 		if (keystates[SDL_SCANCODE_LEFT]) {
 			trans->velocity.x = -1;
 			sprite->Play("Walk");
-			sprite->spriteflip = SDL_FLIP_HORIZONTAL;
+			sprite->spriteflip = SDL_FLIP_NONE;
 			direction = 2;
 		}
 		if (keystates[SDL_SCANCODE_DOWN]) {
@@ -46,31 +47,43 @@ public:
 		if (keystates[SDL_SCANCODE_RIGHT]) {
 			trans->velocity.x = 1;
 			sprite->Play("Walk");
-			sprite->spriteflip = SDL_FLIP_NONE;
+			sprite->spriteflip = SDL_FLIP_HORIZONTAL;
 			direction = 4;
 		}
-		if (keystates[SDL_SCANCODE_D]&&dashcount!=0)
+		if (keystates[SDL_SCANCODE_D]&&dashCD!=0)
         {
+
             switch(direction)
             {
             case 1:
-                trans->velocity.y=-80;
+                trans->velocity.y=-64;
+                sprite->Play("Dash");
                 break;
             case 2:
-                trans->velocity.x=-80;
+                trans->velocity.x=-64;
+                sprite->Play("Dash");
                 break;
             case 3:
-                trans->velocity.y=80;
+                trans->velocity.y=64;
+                sprite->Play("Dash");
                 break;
             case 4:
-                trans->velocity.x=80;
+                trans->velocity.x=64;
+                sprite->Play("Dash");
                 break;
             }
-            dashcount --;
+            dashCD -=20;
 
         }
-
-		if(Game::event.type == SDL_KEYUP) sprite ->Play("Idle");
+        if (Game::event.type==SDL_KEYDOWN&&keystates[SDL_SCANCODE_S]&&sprintCD!=0)
+        {
+            trans->pace=3;
+            sprintCD --;
+        }
+		if(Game::event.type == SDL_KEYUP){
+                sprite ->Play("Idle");
+                trans->pace=2;
+		}
 	}
 };
 

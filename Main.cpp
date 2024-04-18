@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "ECS.h"
 #include "Components.h"
+
+#include"string"
 #undef main
 
 
@@ -11,18 +13,21 @@ Uint32 frameStart;
 int frameTime;
 
 
+
 int main(int argc, const char ** argv)
 {
-
     game = new Game();
     game->init("X", gWidth, gHeight, SDL_WINDOW_SHOWN);//initialize
+
+
+
     //game loop
     while(game->running()){
 
         frameStart = SDL_GetTicks();
-        score -= frameTime;
-        game->handleEvent()
-        ;
+
+
+        game->handleEvent();
         game->update();
         game->render();
 
@@ -36,5 +41,4 @@ int main(int argc, const char ** argv)
     }
     game->clean();
     return 0;
-
 }

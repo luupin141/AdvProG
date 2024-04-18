@@ -10,7 +10,7 @@ class SpriteComponent : public Component
 private:
     TransformComponent *trans;
 
-    SDL_Rect srcR, destR;
+
     bool animated = 0;
     int frames = 0;
     int speed = 100;
@@ -18,7 +18,7 @@ private:
 public:
     SDL_Texture *tex;
     int animaIndex = 0;
-
+    SDL_Rect srcR, destR;
     std::map<const char *, Anima> animations;
 
     SDL_RendererFlip spriteflip = SDL_FLIP_NONE;
@@ -34,14 +34,17 @@ public:
 
         Anima idle = Anima(0,6,100);
         Anima walk = Anima(1,6,100);
+        Anima dash = Anima(2,4,100);
 
         animations.emplace("Idle", idle);
         animations.emplace("Walk", walk);
+        animations.emplace("Dash", dash);
 
         Play("Idle");
 
         setTex(path);
     }
+
     ~SpriteComponent()
     {
         SDL_DestroyTexture(tex);
@@ -50,7 +53,10 @@ public:
     {
         tex = TextureManage::LoadTexture(path);
     }
-
+    void setxrect(int x)
+    {
+        srcR.x=x;
+    }
     void init() override
     {
         trans = &entity->getComponent<TransformComponent>();
