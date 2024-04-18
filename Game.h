@@ -1,10 +1,13 @@
 #ifndef Game_h
 #define Game_h
-
 #include<SDL.h>
 #include<SDL_image.h>
-#include<iostream>
-#include<vector>
+#include<SDL_mixer.h>
+#include<SDL_ttf.h>
+#include<bits/stdc++.h>
+
+const int gHeight= 640;
+const int gWidth = 1280 ;
 
 class ColliderComponent;
 
@@ -22,13 +25,17 @@ public:
     void clean();
 
     bool running(){return isRunning;}
+
+
+
     static SDL_Renderer *renderer;
     static SDL_Event event;
     static std::vector<ColliderComponent*> colliders;
 private:
 
-    bool isRunning ;
+    bool isRunning;
     SDL_Window *window;
+
 
 
 };

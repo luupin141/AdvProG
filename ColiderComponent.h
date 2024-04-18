@@ -37,6 +37,13 @@ public:
         collider.w = trans->width *trans->scale;
         collider.h = trans->height *trans->scale;
     }
+    void Free()
+    {
+        collider.x = 0;
+        collider.y = 0;
+        collider.w = 0;
+        collider.h = 0;
+    }
 
 };
 

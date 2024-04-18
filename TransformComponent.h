@@ -14,7 +14,7 @@ public:
     int height =32 ;
     int width =32 ;
     int scale = 1;
-
+    int gravity = 64;
     int pace = 2;
 
     TransformComponent()
