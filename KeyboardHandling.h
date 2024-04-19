@@ -6,8 +6,8 @@
 #include "Components.h"
 
 int direction = 0;
-int dashCD  = 100;
-int sprintCD = 100;
+
+
 
 class KeyboardHandling : public Component
 {
@@ -50,35 +50,33 @@ public:
 			sprite->spriteflip = SDL_FLIP_HORIZONTAL;
 			direction = 4;
 		}
-		if (keystates[SDL_SCANCODE_D]&&dashCD!=0)
+		if (keystates[SDL_SCANCODE_D])
         {
 
             switch(direction)
             {
             case 1:
-                trans->velocity.y=-64;
+                trans->pace = 5;
                 sprite->Play("Dash");
                 break;
             case 2:
-                trans->velocity.x=-64;
+                trans->pace = 5;
                 sprite->Play("Dash");
                 break;
             case 3:
-                trans->velocity.y=64;
+                trans->pace = 5;
+
                 sprite->Play("Dash");
                 break;
             case 4:
-                trans->velocity.x=64;
+                trans->pace = 5;
                 sprite->Play("Dash");
                 break;
             }
-            dashCD -=20;
-
         }
-        if (Game::event.type==SDL_KEYDOWN&&keystates[SDL_SCANCODE_S]&&sprintCD!=0)
+        if (keystates[SDL_SCANCODE_X])
         {
-            trans->pace=3;
-            sprintCD --;
+            sprite->Play("Punch");
         }
 		if(Game::event.type == SDL_KEYUP){
                 sprite ->Play("Idle");

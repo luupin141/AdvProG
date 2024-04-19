@@ -565,3 +565,105 @@
 	"SDL.h"
 	"string"
 
+1713536606 source:c:\users\admin\desktop\new folder\advprog\collision.cpp
+	"Collision.h"
+	"SDL.h"
+
+1713536606 c:\users\admin\desktop\new folder\advprog\collision.h
+	<SDL.h>
+
+1713536606 source:c:\users\admin\desktop\new folder\advprog\game.cpp
+	"Game.h"
+	"Text.h"
+	"Textures.h"
+	"ECS.h"
+	"Components.h"
+	"Vector2D.h"
+	"KeyboardHandling.h"
+	"Collision.h"
+	"Gravity.h"
+	"iostream"
+	"vector"
+	"string"
+
+1713536606 c:\users\admin\desktop\new folder\advprog\game.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	<SDL_ttf.h>
+	<bits/stdc++.h>
+
+1713536607 c:\users\admin\desktop\new folder\advprog\text.h
+	"SDL_ttf.h"
+	"SDL.h"
+	"string"
+
+1713536607 c:\users\admin\desktop\new folder\advprog\textures.h
+	"Game.h"
+
+1713536606 c:\users\admin\desktop\new folder\advprog\ecs.h
+	<iostream>
+	<vector>
+	<memory>
+	<algorithm>
+	<bitset>
+	<array>
+
+1713536606 c:\users\admin\desktop\new folder\advprog\components.h
+	"ECS.h"
+	"TransformComponent.h"
+	"SpriteComponent.h"
+	"ColiderComponent.h"
+	"Gravity.h"
+
+1713536607 c:\users\admin\desktop\new folder\advprog\transformcomponent.h
+	"Components.h"
+	"Vector2D.h"
+
+1713536607 c:\users\admin\desktop\new folder\advprog\vector2d.h
+	<iostream>
+
+1713536805 c:\users\admin\desktop\new folder\advprog\spritecomponent.h
+	"Components.h"
+	"Anima.h"
+	"Textures.h"
+	"SDL.h"
+	"map"
+
+1713536606 c:\users\admin\desktop\new folder\advprog\anima.h
+
+1713536606 c:\users\admin\desktop\new folder\advprog\colidercomponent.h
+	"string"
+	"SDL.h"
+	"Components.h"
+	"vector"
+
+1713536606 c:\users\admin\desktop\new folder\advprog\gravity.h
+	"Components.h"
+	"Vector2D.h"
+
+1713536986 c:\users\admin\desktop\new folder\advprog\keyboardhandling.h
+	"Game.h"
+	"ECS.h"
+	"Components.h"
+
+1713536606 source:c:\users\admin\desktop\new folder\advprog\main.cpp
+	"Game.h"
+	"ECS.h"
+	"Components.h"
+	"string"
+
+1713536606 source:c:\users\admin\desktop\new folder\advprog\object.cpp
+	"Object.h"
+	"Textures.h"
+
+1713536606 c:\users\admin\desktop\new folder\advprog\object.h
+	"Game.h"
+
+1713536607 source:c:\users\admin\desktop\new folder\advprog\textures.cpp
+	"Textures.h"
+	"Object.h"
+
+1713536607 source:c:\users\admin\desktop\new folder\advprog\vector2d.cpp
+	"Vector2D.h"
+
