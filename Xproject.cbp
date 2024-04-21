@@ -51,7 +51,6 @@
 		<Unit filename="ECS.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
-		<Unit filename="Gravity.h" />
 		<Unit filename="KeyboardHandling.h" />
 		<Unit filename="Main.cpp" />
 		<Unit filename="Object.cpp" />

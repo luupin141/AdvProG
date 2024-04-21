@@ -572,7 +572,7 @@
 1713536606 c:\users\admin\desktop\new folder\advprog\collision.h
 	<SDL.h>
 
-1713536606 source:c:\users\admin\desktop\new folder\advprog\game.cpp
+1713671908 source:c:\users\admin\desktop\new folder\advprog\game.cpp
 	"Game.h"
 	"Text.h"
 	"Textures.h"
@@ -581,7 +581,7 @@
 	"Vector2D.h"
 	"KeyboardHandling.h"
 	"Collision.h"
-	"Gravity.h"
+	"Tactic.h"
 	"iostream"
 	"vector"
 	"string"
@@ -609,21 +609,21 @@
 	<bitset>
 	<array>
 
-1713536606 c:\users\admin\desktop\new folder\advprog\components.h
+1713578544 c:\users\admin\desktop\new folder\advprog\components.h
 	"ECS.h"
 	"TransformComponent.h"
 	"SpriteComponent.h"
 	"ColiderComponent.h"
-	"Gravity.h"
+	"Tactic.h"
 
-1713536607 c:\users\admin\desktop\new folder\advprog\transformcomponent.h
+1713625140 c:\users\admin\desktop\new folder\advprog\transformcomponent.h
 	"Components.h"
 	"Vector2D.h"
 
 1713536607 c:\users\admin\desktop\new folder\advprog\vector2d.h
 	<iostream>
 
-1713536805 c:\users\admin\desktop\new folder\advprog\spritecomponent.h
+1713576913 c:\users\admin\desktop\new folder\advprog\spritecomponent.h
 	"Components.h"
 	"Anima.h"
 	"Textures.h"
@@ -642,12 +642,12 @@
 	"Components.h"
 	"Vector2D.h"
 
-1713536986 c:\users\admin\desktop\new folder\advprog\keyboardhandling.h
+1713604443 c:\users\admin\desktop\new folder\advprog\keyboardhandling.h
 	"Game.h"
 	"ECS.h"
 	"Components.h"
 
-1713536606 source:c:\users\admin\desktop\new folder\advprog\main.cpp
+1713639073 source:c:\users\admin\desktop\new folder\advprog\main.cpp
 	"Game.h"
 	"ECS.h"
 	"Components.h"
@@ -665,5 +665,9 @@
 	"Object.h"
 
 1713536607 source:c:\users\admin\desktop\new folder\advprog\vector2d.cpp
+	"Vector2D.h"
+
+1713578613 c:\users\admin\desktop\new folder\advprog\tactic.h
+	"Components.h"
 	"Vector2D.h"
 

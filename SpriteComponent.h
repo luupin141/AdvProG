@@ -28,7 +28,7 @@ public:
     {
         setTex(path);
     }
-     SpriteComponent(const char* path, bool isAnimated)
+    SpriteComponent(const char* path, bool isAnimated)
     {
         animated = isAnimated;
 

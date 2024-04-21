@@ -77,6 +77,7 @@ public:
         if (keystates[SDL_SCANCODE_X])
         {
             sprite->Play("Punch");
+
         }
 		if(Game::event.type == SDL_KEYUP){
                 sprite ->Play("Idle");

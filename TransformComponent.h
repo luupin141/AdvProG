@@ -15,7 +15,7 @@ public:
     int width =32 ;
     int scale = 1;
     int gravity = 64;
-    int pace = 2;
+    int pace = 1;
 
     TransformComponent()
     {
@@ -44,7 +44,13 @@ public:
         position.x += velocity.x * pace;
         position.y += velocity.y * pace;
     }
-
+    void Free()
+    {
+        position.x = 0;
+        position.y = 0;
+        height = 0;
+        width = 0;
+    }
 
 };
 
