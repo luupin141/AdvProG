@@ -2,19 +2,14 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="Game.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="213" topLine="23" />
-		</Cursor>
-	</File>
 	<File name="TransformComponent.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="983" topLine="0" />
+			<Cursor1 position="983" topLine="43" />
 		</Cursor>
 	</File>
 	<File name="SpriteComponent.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="-7" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="612" topLine="54" />
+			<Cursor1 position="612" topLine="6" />
 		</Cursor>
 	</File>
 	<File name="Vector2D.h" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -22,39 +17,14 @@
 			<Cursor1 position="0" topLine="6" />
 		</Cursor>
 	</File>
-	<File name="Components.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="169" topLine="0" />
-		</Cursor>
-	</File>
 	<File name="KeyboardHandling.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="-6" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="452" topLine="21" />
+			<Cursor1 position="452" topLine="64" />
 		</Cursor>
 	</File>
 	<File name="ColiderComponent.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="871" topLine="29" />
-		</Cursor>
-	</File>
-	<File name="ECS.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="-3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1532" topLine="59" />
-		</Cursor>
-	</File>
-	<File name="Game.cpp" open="1" top="1" tabpos="15" split="0" active="1" splitpos="0" zoom_1="-6" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7164" topLine="218" />
-		</Cursor>
-	</File>
-	<File name="Anima.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="192" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="Collision.h" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="871" topLine="28" />
 		</Cursor>
 	</File>
 	<File name="Object.h" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
@@ -62,9 +32,14 @@
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Main.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ECS.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="-3" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="140" topLine="21" />
+			<Cursor1 position="2045" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="Components.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="176" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Text.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
@@ -72,9 +47,34 @@
 			<Cursor1 position="281" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="Main.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="140" topLine="21" />
+		</Cursor>
+	</File>
+	<File name="Game.cpp" open="1" top="1" tabpos="15" split="0" active="1" splitpos="0" zoom_1="-7" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11333" topLine="336" />
+		</Cursor>
+	</File>
+	<File name="Textures.cpp" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="460" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Anima.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="192" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="Textures.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="230" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Game.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="213" topLine="21" />
 		</Cursor>
 	</File>
 	<File name="Collision.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -82,9 +82,9 @@
 			<Cursor1 position="22" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Textures.cpp" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Collision.h" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="460" topLine="0" />
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

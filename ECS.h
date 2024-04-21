@@ -87,6 +87,10 @@ public:
         auto ptr(componentArray[getComponentTypeID<T>()]);
         return *static_cast<T*>(ptr);
     }
+
+
+
+
 };
 
 class Manager

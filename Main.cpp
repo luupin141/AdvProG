@@ -7,7 +7,7 @@
 
 
 Game *game = nullptr;
-const int FPS = 45;//adjust framerate
+const int FPS = 60;//adjust framerate
 const int frameDelay = 1000/FPS;
 Uint32 frameStart;
 int frameTime;

@@ -36,16 +36,22 @@ bool onQuest1 = 0;
 bool onQuest2 = 0;
 bool onQuest3 = 0;
 bool onQuest4 = 0;
+bool can4 = 1;
+bool can3 = 1;
+bool can2 = 1;
+bool can1 = 1;
+bool gotKey = 0;
 
 //
 SDL_Renderer* Game::renderer = nullptr ;
 //
 Manager manager;
-Manager polyglyph;
+Manager Q_A;
+
 //
 SDL_Event Game::event;
 //
-std::vector <ColliderComponent*> Game::colliders;
+
 
 
 auto& background(manager.addEntity());
@@ -68,6 +74,10 @@ auto& rock2(manager.addEntity());
 auto& rock3(manager.addEntity());
 auto& rock4(manager.addEntity());
 auto& rock5(manager.addEntity());
+auto& fence1(manager.addEntity());
+auto& fence2(manager.addEntity());
+auto& fence3(manager.addEntity());
+auto& fence4(manager.addEntity());
 auto& scroll1(manager.addEntity());
 auto& scroll2(manager.addEntity());
 auto& scroll3(manager.addEntity());
@@ -85,19 +95,19 @@ auto& life(manager.addEntity());
 auto& menu(manager.addEntity());
 auto& menu2(manager.addEntity());
 //after interact
-auto& hint1(polyglyph.addEntity());
+auto& hint1(Q_A.addEntity());
 
-auto& hint2(polyglyph.addEntity());
+auto& hint2(Q_A.addEntity());
 
-auto& hint3(polyglyph.addEntity());
+auto& hint3(Q_A.addEntity());
 
-auto& hint4(polyglyph.addEntity());
+auto& hint4(Q_A.addEntity());
 
 //question
-auto& quest1(polyglyph.addEntity());
-auto& quest2(polyglyph.addEntity());
-auto& quest3(polyglyph.addEntity());
-auto& quest4(polyglyph.addEntity());
+auto& quest1(Q_A.addEntity());
+auto& quest2(Q_A.addEntity());
+auto& quest3(Q_A.addEntity());
+auto& quest4(Q_A.addEntity());
 
 
 
@@ -264,6 +274,21 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     life.addComponent<TransformComponent>(16,24,40,300,1);
     life.addComponent<SpriteComponent>("GUI/hp.png");
 
+    fence4.addComponent<TransformComponent>(1030, 18,603,9,1 );
+    fence4.addComponent<SpriteComponent>();
+    fence4.addComponent<ColliderComponent>("fence4");
+
+    fence3.addComponent<TransformComponent>(752, 530,93,10,1 );
+    fence3.addComponent<SpriteComponent>();
+    fence3.addComponent<ColliderComponent>("fence3");
+
+    fence2.addComponent<TransformComponent>(720, 257,16,180,1 );
+    fence2.addComponent<SpriteComponent>();
+    fence2.addComponent<ColliderComponent>("fence2");
+
+    fence1.addComponent<TransformComponent>(400, 20,120,16,1 );
+    fence1.addComponent<SpriteComponent>();
+    fence1.addComponent<ColliderComponent>("fence1");
 }
 void Game::handleEvent()
 {
@@ -289,7 +314,12 @@ void Game::handleEvent()
 }
 
 void Game::update() {
-
+    Vector2D playerPos = player.getComponent<TransformComponent>().position ;
+	manager.refresh();
+	manager.update();
+	Q_A.refresh();
+	Q_A.update();
+    //print life
     switch(HP)
     {
     case 4:
@@ -304,6 +334,7 @@ void Game::update() {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"NOTE","YOU DIED",window);
         isRunning = 0;
     }
+    //got key
 
     //play mix
     if(!gameStart&&playMenuMix==0){Mix_PlayChannel(-1,menuMix,-1);
@@ -323,16 +354,13 @@ void Game::update() {
 
     }
 
-	Vector2D playerPos = player.getComponent<TransformComponent>().position ;
-	manager.refresh();
-	manager.update();
 
-	polyglyph.refresh();
-	polyglyph.update();
-	std::cout<<mx<<" "<<my<<std::endl;
+
+	//std::cout<<mx<<" "<<my<<std::endl;
 
 	//quest 1
     if(!getHint1)
+    {
     if(Collision::AABB(player.getComponent<ColliderComponent>().collider,rock1.getComponent<ColliderComponent>().collider))
     {
         quest1.getComponent<SpriteComponent>().setTex("GUI/quest1.png");
@@ -344,16 +372,19 @@ void Game::update() {
         if(event.key.keysym.sym==SDLK_6)
         {
             Mix_PlayChannel(1,trueMix,1);
-            Mix_HaltChannel(1);
-            quest1.getComponent<SpriteComponent>().Free();
-
             scroll1.getComponent<SpriteComponent>().Free();
+            quest1.getComponent<SpriteComponent>().Free();
+            fence4.addComponent<SpriteComponent>("GUI/sample3.png");
+            can4 = 0;
+            onQuest1 = 0;
             getHint1 = 1;
         }
 
     }
+    }
     //quest 2
     if(!getHint2)
+    {
     if(Collision::AABB(player.getComponent<ColliderComponent>().collider,scroll2.getComponent<ColliderComponent>().collider))
     {
         quest2.getComponent<SpriteComponent>().setTex("GUI/quest2.png");
@@ -365,16 +396,21 @@ void Game::update() {
         if(event.key.keysym.sym==SDLK_2)
         {
             Mix_PlayChannel(2,trueMix,1);
-            Mix_HaltChannel(2);
-            quest2.getComponent<SpriteComponent>().Free();
-
             scroll2.getComponent<SpriteComponent>().Free();
+
+            quest2.getComponent<SpriteComponent>().Free();
+            fence3.addComponent<SpriteComponent>("GUI/sample2.png");
+            can3 = 0;
+            onQuest2 = 0;
             getHint2 = 1;
+
         }
 
     }
+    }
     //quest3
     if(!getHint3)
+    {
     if(Collision::AABB(player.getComponent<ColliderComponent>().collider,scroll3.getComponent<ColliderComponent>().collider))
     {
         quest3.getComponent<SpriteComponent>().setTex("GUI/quest3.png");
@@ -386,16 +422,19 @@ void Game::update() {
         if(event.key.keysym.sym==SDLK_0)
         {
             Mix_PlayChannel(3,trueMix,1);
-            Mix_HaltChannel(3);
-            quest3.getComponent<SpriteComponent>().Free();
-
             scroll3.getComponent<SpriteComponent>().Free();
+            quest3.getComponent<TransformComponent>().Free();
+            fence2.addComponent<SpriteComponent>("GUI/sample1.png");
+            can2 = 0;
+            onQuest3 = 0;
             getHint3 = 1;
         }
 
     }
+    }
     //quest4
     if(!getHint4)
+    {
     if(Collision::AABB(player.getComponent<ColliderComponent>().collider,scroll4.getComponent<ColliderComponent>().collider))
     {
         quest4.getComponent<SpriteComponent>().setTex("GUI/quest4.png");
@@ -407,18 +446,32 @@ void Game::update() {
         if(event.key.keysym.sym==SDLK_d)
         {
             Mix_PlayChannel(4,trueMix,1);
-            Mix_HaltChannel(4);
-            quest4.getComponent<SpriteComponent>().Free();
-
             scroll4.getComponent<SpriteComponent>().Free();
+            quest4.getComponent<SpriteComponent>().Free();
+            fence1.addComponent<SpriteComponent>("GUI/sample1.png");
+
+            can1 = 0;
+            onQuest4 = 0;
             getHint4 = 1;
         }
 
     }
+    }
 
 
 
-    if (playerPos.x<-16 || playerPos.y<-16){
+    if(getHint1&&getHint2&&getHint3&&getHint4)
+    {
+        gotKey = true;
+        keynum.getComponent<SpriteComponent>().setTex("GUI/1.png");
+    }
+    if(gotKey&&Collision::AABB(player.getComponent<ColliderComponent>().collider, chest.getComponent<ColliderComponent>().collider))
+    {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT,"CONGRATULATION","YOU WIN",window);
+        isRunning = false;
+    }
+
+    if (playerPos.x< -16 || playerPos.y< -16){
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Noti","You die",window);
         isRunning = false;}
 	if (  Collision::AABB(player.getComponent<ColliderComponent>().collider, botBorder.getComponent<ColliderComponent>().collider)
@@ -438,8 +491,12 @@ void Game::update() {
         ||Collision::AABB(player.getComponent<ColliderComponent>().collider, rock3.getComponent<ColliderComponent>().collider)
         ||Collision::AABB(player.getComponent<ColliderComponent>().collider, rock4.getComponent<ColliderComponent>().collider)
         ||Collision::AABB(player.getComponent<ColliderComponent>().collider, rock5.getComponent<ColliderComponent>().collider)
-        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, chest.getComponent<ColliderComponent>().collider)
-        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, screen.getComponent<ColliderComponent>().collider)){
+        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, screen.getComponent<ColliderComponent>().collider)
+        ||(Collision::AABB(player.getComponent<ColliderComponent>().collider, fence1.getComponent<ColliderComponent>().collider)&&can1==1)
+        ||(Collision::AABB(player.getComponent<ColliderComponent>().collider, fence3.getComponent<ColliderComponent>().collider)&&can3==1)
+        ||(Collision::AABB(player.getComponent<ColliderComponent>().collider, fence4.getComponent<ColliderComponent>().collider)&&can4==1)
+        ||(Collision::AABB(player.getComponent<ColliderComponent>().collider, fence2.getComponent<ColliderComponent>().collider)&&can2==1)
+        ){
             player.getComponent<TransformComponent>().position = playerPos;
             std::cout << "Collision!" << std::endl;
 	}
@@ -449,7 +506,7 @@ void Game::render()
 {
     SDL_RenderClear(renderer);
     manager.draw();
-    polyglyph.draw();
+    Q_A.draw();
 
 
     SDL_RenderPresent(renderer);
@@ -457,6 +514,9 @@ void Game::render()
 void Game::clean()
 {
     Mix_FreeChunk(gameMix);
+    Mix_FreeChunk(menuMix);
+    Mix_FreeChunk(trueMix);
+    Mix_FreeChunk(falseMix);
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
