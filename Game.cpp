@@ -42,6 +42,7 @@ bool can2 = 1;
 bool can1 = 1;
 bool gotKey = 0;
 
+
 //
 SDL_Renderer* Game::renderer = nullptr ;
 //
@@ -87,27 +88,27 @@ auto& chest(manager.addEntity());
 auto& pwup(manager.addEntity());
 auto& player(manager.addEntity());
 auto& key(manager.addEntity());
-auto& keynum(manager.addEntity());
-auto& life(manager.addEntity());
 
+auto& life(manager.addEntity());
+//after interact
+auto& hint1(manager.addEntity());
+
+auto& hint2(manager.addEntity());
+
+auto& hint3(manager.addEntity());
+
+auto& hint4(manager.addEntity());
 
 //menu
 auto& menu(manager.addEntity());
 auto& menu2(manager.addEntity());
-//after interact
-auto& hint1(Q_A.addEntity());
 
-auto& hint2(Q_A.addEntity());
-
-auto& hint3(Q_A.addEntity());
-
-auto& hint4(Q_A.addEntity());
 
 //question
-auto& quest1(Q_A.addEntity());
-auto& quest2(Q_A.addEntity());
-auto& quest3(Q_A.addEntity());
-auto& quest4(Q_A.addEntity());
+auto& quest1(manager.addEntity());
+auto& quest2(manager.addEntity());
+auto& quest3(manager.addEntity());
+auto& quest4(manager.addEntity());
 
 
 
@@ -227,32 +228,29 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     key.addComponent<TransformComponent>(32,68,40,40,1);
     key.addComponent<SpriteComponent>("GUI/key.png");
 
-    keynum.addComponent<TransformComponent>(101,68,40,40,1);
-    keynum.addComponent<SpriteComponent>("GUI/0.png");
-
-    hint1.addComponent<TransformComponent>(215,375,80,160,1);
-    hint1.addComponent<SpriteComponent>();
+    hint1.addComponent<TransformComponent>(215,375,85,160,1);
+    hint1.addComponent<SpriteComponent>("GUI/cover.png");
 
     scroll1.addComponent<TransformComponent>(855,151,40,40,1);
     scroll1.addComponent<SpriteComponent>("GUI/scroll.png");
 
 
-    hint2.addComponent<TransformComponent>(375,375,80,160,1);
-    hint2.addComponent<SpriteComponent>();
+    hint2.addComponent<TransformComponent>(375,375,85,160,1);
+    hint2.addComponent<SpriteComponent>("GUI/cover.png");
 
     scroll2.addComponent<TransformComponent>(600,140,40,40,1);
     scroll2.addComponent<SpriteComponent>("GUI/scroll.png");
     scroll2.addComponent<ColliderComponent>("scroll2");
 
     hint3.addComponent<TransformComponent>(215,455,85,160,1);
-    hint3.addComponent<SpriteComponent>();
+    hint3.addComponent<SpriteComponent>("GUI/cover.png");
 
     scroll3.addComponent<TransformComponent>(920,478,40,40,1);
     scroll3.addComponent<SpriteComponent>("GUI/scroll.png");
     scroll3.addComponent<ColliderComponent>("scroll3");
 
     hint4.addComponent<TransformComponent>(375,455,85,160,1);
-    hint4.addComponent<SpriteComponent>();
+    hint4.addComponent<SpriteComponent>("GUI/cover.png");
 
     scroll4.addComponent<TransformComponent>(170,145,40,40,1);
     scroll4.addComponent<SpriteComponent>("GUI/scroll.png");
@@ -275,19 +273,19 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     life.addComponent<SpriteComponent>("GUI/hp.png");
 
     fence4.addComponent<TransformComponent>(1030, 18,603,9,1 );
-    fence4.addComponent<SpriteComponent>();
+    fence4.addComponent<SpriteComponent>("GUI/fence4.png");
     fence4.addComponent<ColliderComponent>("fence4");
 
     fence3.addComponent<TransformComponent>(752, 530,93,10,1 );
-    fence3.addComponent<SpriteComponent>();
+    fence3.addComponent<SpriteComponent>("GUI/fence3.png");
     fence3.addComponent<ColliderComponent>("fence3");
 
     fence2.addComponent<TransformComponent>(720, 257,16,180,1 );
-    fence2.addComponent<SpriteComponent>();
+    fence2.addComponent<SpriteComponent>("GUI/fence2.png");
     fence2.addComponent<ColliderComponent>("fence2");
 
     fence1.addComponent<TransformComponent>(400, 20,120,16,1 );
-    fence1.addComponent<SpriteComponent>();
+    fence1.addComponent<SpriteComponent>("GUI/fence1.png");
     fence1.addComponent<ColliderComponent>("fence1");
 }
 void Game::handleEvent()
@@ -317,8 +315,7 @@ void Game::update() {
     Vector2D playerPos = player.getComponent<TransformComponent>().position ;
 	manager.refresh();
 	manager.update();
-	Q_A.refresh();
-	Q_A.update();
+
     //print life
     switch(HP)
     {
@@ -359,47 +356,51 @@ void Game::update() {
 	//std::cout<<mx<<" "<<my<<std::endl;
 
 	//quest 1
-    if(!getHint1)
+
+    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,rock1.getComponent<ColliderComponent>().collider)&&(!getHint1))
     {
-    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,rock1.getComponent<ColliderComponent>().collider))
-    {
-        quest1.getComponent<SpriteComponent>().setTex("GUI/quest1.png");
+
         onQuest1 = 1;
-        hint1.getComponent<SpriteComponent>().setTex("GUI/hint1.png");
+
     }
+
     if(onQuest1 == 1)
     {
+        quest1.getComponent<SpriteComponent>().setTex("GUI/quest1.png");
+        hint1.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_6)
         {
             Mix_PlayChannel(1,trueMix,1);
-            scroll1.getComponent<SpriteComponent>().Free();
+
             quest1.getComponent<SpriteComponent>().Free();
-            fence4.addComponent<SpriteComponent>("GUI/sample3.png");
-            can4 = 0;
+            fence4.getComponent<SpriteComponent>().Free();
+
             onQuest1 = 0;
             getHint1 = 1;
+            can4 = 0;
         }
 
     }
-    }
+
     //quest 2
-    if(!getHint2)
+
+
+    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,scroll2.getComponent<ColliderComponent>().collider)&&(!getHint2))
     {
-    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,scroll2.getComponent<ColliderComponent>().collider))
-    {
-        quest2.getComponent<SpriteComponent>().setTex("GUI/quest2.png");
+
         onQuest2 = 1;
-        hint2.getComponent<SpriteComponent>().setTex("GUI/hint2.png");
+
     }
+
     if(onQuest2 == 1)
     {
+        quest2.getComponent<SpriteComponent>().setTex("GUI/quest2.png");
+        hint2.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_2)
         {
             Mix_PlayChannel(2,trueMix,1);
-            scroll2.getComponent<SpriteComponent>().Free();
-
             quest2.getComponent<SpriteComponent>().Free();
-            fence3.addComponent<SpriteComponent>("GUI/sample2.png");
+            fence3.getComponent<SpriteComponent>().Free();
             can3 = 0;
             onQuest2 = 0;
             getHint2 = 1;
@@ -407,48 +408,51 @@ void Game::update() {
         }
 
     }
-    }
+
     //quest3
-    if(!getHint3)
+
+    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,scroll3.getComponent<ColliderComponent>().collider)&&(!getHint3))
     {
-    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,scroll3.getComponent<ColliderComponent>().collider))
-    {
-        quest3.getComponent<SpriteComponent>().setTex("GUI/quest3.png");
+
         onQuest3 = 1;
-        hint3.getComponent<SpriteComponent>().setTex("GUI/hint3.png");
+
     }
+
     if(onQuest3 == 1)
     {
+        quest3.getComponent<SpriteComponent>().setTex("GUI/quest3.png");
+        hint3.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_0)
         {
             Mix_PlayChannel(3,trueMix,1);
-            scroll3.getComponent<SpriteComponent>().Free();
+
             quest3.getComponent<TransformComponent>().Free();
-            fence2.addComponent<SpriteComponent>("GUI/sample1.png");
+            fence2.getComponent<SpriteComponent>().Free();
             can2 = 0;
             onQuest3 = 0;
             getHint3 = 1;
         }
 
     }
-    }
+
     //quest4
-    if(!getHint4)
+
+    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,scroll4.getComponent<ColliderComponent>().collider)&&(!getHint4))
     {
-    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,scroll4.getComponent<ColliderComponent>().collider))
-    {
-        quest4.getComponent<SpriteComponent>().setTex("GUI/quest4.png");
+
         onQuest4 = 1;
-        hint4.getComponent<SpriteComponent>().setTex("GUI/hint4.png");
+
     }
     if(onQuest4 == 1)
     {
+        quest4.getComponent<SpriteComponent>().setTex("GUI/quest4.png");
+        hint4.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_d)
         {
             Mix_PlayChannel(4,trueMix,1);
-            scroll4.getComponent<SpriteComponent>().Free();
+
             quest4.getComponent<SpriteComponent>().Free();
-            fence1.addComponent<SpriteComponent>("GUI/sample1.png");
+            fence1.getComponent<SpriteComponent>().Free();
 
             can1 = 0;
             onQuest4 = 0;
@@ -456,14 +460,15 @@ void Game::update() {
         }
 
     }
-    }
 
 
 
-    if(getHint1&&getHint2&&getHint3&&getHint4)
+
+    if(can4==0)
     {
         gotKey = true;
-        keynum.getComponent<SpriteComponent>().setTex("GUI/1.png");
+        key.getComponent<SpriteComponent>().setTex("GUI/key1.png");
+
     }
     if(gotKey&&Collision::AABB(player.getComponent<ColliderComponent>().collider, chest.getComponent<ColliderComponent>().collider))
     {
@@ -506,7 +511,7 @@ void Game::render()
 {
     SDL_RenderClear(renderer);
     manager.draw();
-    Q_A.draw();
+
 
 
     SDL_RenderPresent(renderer);

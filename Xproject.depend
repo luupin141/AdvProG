@@ -565,14 +565,14 @@
 	"SDL.h"
 	"string"
 
-1713673242 source:c:\users\admin\desktop\new folder\advprog\collision.cpp
+1713727024 source:c:\users\admin\desktop\new folder\advprog\collision.cpp
 	"Collision.h"
 	"SDL.h"
 
-1713673242 c:\users\admin\desktop\new folder\advprog\collision.h
+1713727024 c:\users\admin\desktop\new folder\advprog\collision.h
 	<SDL.h>
 
-1713726086 source:c:\users\admin\desktop\new folder\advprog\game.cpp
+1713808051 source:c:\users\admin\desktop\new folder\advprog\game.cpp
 	"Game.h"
 	"Text.h"
 	"Textures.h"
@@ -586,22 +586,22 @@
 	"vector"
 	"string"
 
-1713715519 c:\users\admin\desktop\new folder\advprog\game.h
+1713727024 c:\users\admin\desktop\new folder\advprog\game.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
 	<SDL_ttf.h>
 	<bits/stdc++.h>
 
-1713673244 c:\users\admin\desktop\new folder\advprog\text.h
+1713727025 c:\users\admin\desktop\new folder\advprog\text.h
 	"SDL_ttf.h"
 	"SDL.h"
 	"string"
 
-1713673244 c:\users\admin\desktop\new folder\advprog\textures.h
+1713727025 c:\users\admin\desktop\new folder\advprog\textures.h
 	"Game.h"
 
-1713695736 c:\users\admin\desktop\new folder\advprog\ecs.h
+1713799343 c:\users\admin\desktop\new folder\advprog\ecs.h
 	<iostream>
 	<vector>
 	<memory>
@@ -609,30 +609,30 @@
 	<bitset>
 	<array>
 
-1713696204 c:\users\admin\desktop\new folder\advprog\components.h
+1713727024 c:\users\admin\desktop\new folder\advprog\components.h
 	"ECS.h"
 	"TransformComponent.h"
 	"SpriteComponent.h"
 	"ColiderComponent.h"
 	"Tactic.h"
 
-1713673244 c:\users\admin\desktop\new folder\advprog\transformcomponent.h
+1713727025 c:\users\admin\desktop\new folder\advprog\transformcomponent.h
 	"Components.h"
 	"Vector2D.h"
 
-1713673244 c:\users\admin\desktop\new folder\advprog\vector2d.h
+1713727025 c:\users\admin\desktop\new folder\advprog\vector2d.h
 	<iostream>
 
-1713673244 c:\users\admin\desktop\new folder\advprog\spritecomponent.h
+1713808946 c:\users\admin\desktop\new folder\advprog\spritecomponent.h
 	"Components.h"
 	"Anima.h"
 	"Textures.h"
 	"SDL.h"
 	"map"
 
-1713673242 c:\users\admin\desktop\new folder\advprog\anima.h
+1713727024 c:\users\admin\desktop\new folder\advprog\anima.h
 
-1713715519 c:\users\admin\desktop\new folder\advprog\colidercomponent.h
+1713727024 c:\users\admin\desktop\new folder\advprog\colidercomponent.h
 	"string"
 	"SDL.h"
 	"Components.h"
@@ -642,32 +642,32 @@
 	"Components.h"
 	"Vector2D.h"
 
-1713723421 c:\users\admin\desktop\new folder\advprog\keyboardhandling.h
+1713727024 c:\users\admin\desktop\new folder\advprog\keyboardhandling.h
 	"Game.h"
 	"ECS.h"
 	"Components.h"
 
-1713723506 source:c:\users\admin\desktop\new folder\advprog\main.cpp
+1713727024 source:c:\users\admin\desktop\new folder\advprog\main.cpp
 	"Game.h"
 	"ECS.h"
 	"Components.h"
 	"string"
 
-1713673243 source:c:\users\admin\desktop\new folder\advprog\object.cpp
+1713727025 source:c:\users\admin\desktop\new folder\advprog\object.cpp
 	"Object.h"
 	"Textures.h"
 
-1713673243 c:\users\admin\desktop\new folder\advprog\object.h
+1713727025 c:\users\admin\desktop\new folder\advprog\object.h
 	"Game.h"
 
-1713673244 source:c:\users\admin\desktop\new folder\advprog\textures.cpp
+1713727025 source:c:\users\admin\desktop\new folder\advprog\textures.cpp
 	"Textures.h"
 	"Object.h"
 
-1713673244 source:c:\users\admin\desktop\new folder\advprog\vector2d.cpp
+1713727025 source:c:\users\admin\desktop\new folder\advprog\vector2d.cpp
 	"Vector2D.h"
 
-1713673244 c:\users\admin\desktop\new folder\advprog\tactic.h
+1713727025 c:\users\admin\desktop\new folder\advprog\tactic.h
 	"Components.h"
 	"Vector2D.h"
 
