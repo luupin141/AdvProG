@@ -91,7 +91,7 @@ public:
     }
     void Free()
     {
-        SDL_DestroyTexture(tex);
+        tex = TextureManage::LoadTexture("GUI/blank.png");
     }
 };
 
