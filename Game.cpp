@@ -7,6 +7,7 @@
 #include "KeyboardHandling.h"
 #include "Collision.h"
 #include "Tactic.h"
+#include "Text.h"
 #include "iostream"
 #include "vector"
 #include"string"
@@ -14,8 +15,9 @@
 int mx;
 int my;
 int HP = 5;
-
-
+int score = 10000;
+Vector2D startPos(16,320);
+Text *scoreText = NULL;
 
 //mix init
 Mix_Chunk *menuMix = NULL;
@@ -47,8 +49,6 @@ bool gotKey = 0;
 SDL_Renderer* Game::renderer = nullptr ;
 //
 Manager manager;
-Manager Q_A;
-
 //
 SDL_Event Game::event;
 //
@@ -59,6 +59,7 @@ auto& background(manager.addEntity());
 auto& botBorder(manager.addEntity());
 auto& leftBorder(manager.addEntity());
 auto& topBorder(manager.addEntity());
+auto& rightBorder(manager.addEntity());
 auto& spring(manager.addEntity());
 auto& grass1(manager.addEntity());
 auto& grass2(manager.addEntity());
@@ -88,8 +89,16 @@ auto& chest(manager.addEntity());
 auto& pwup(manager.addEntity());
 auto& player(manager.addEntity());
 auto& key(manager.addEntity());
-
 auto& life(manager.addEntity());
+//akainu phase
+auto& lava1(manager.addEntity());
+auto& lava2(manager.addEntity());
+auto& lava3(manager.addEntity());
+auto& lava4(manager.addEntity());
+auto& lava5(manager.addEntity());
+auto& akainu(manager.addEntity());
+//kuzan phase
+auto& kuzan(manager.addEntity());
 //after interact
 auto& hint1(manager.addEntity());
 
@@ -98,6 +107,8 @@ auto& hint2(manager.addEntity());
 auto& hint3(manager.addEntity());
 
 auto& hint4(manager.addEntity());
+
+//effect
 
 //menu
 auto& menu(manager.addEntity());
@@ -146,8 +157,10 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
         gameMix = Mix_LoadWAV("Mixer/game.wav");
         trueMix = Mix_LoadWAV("Mixer/true.wav");
         falseMix = Mix_LoadWAV("Mixer/wrong.wav");
+        scoreText->loadFont("monogram-extended.ttf",80);
     }
     else isRunning = false;
+
 
 
     menu.addComponent<TransformComponent>(0,0,gHeight,gWidth,1);
@@ -157,7 +170,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     background.addComponent<SpriteComponent>("GUI/background.png");
 
 
-    player.addComponent<TransformComponent>(0,320,64,32,1);
+    player.addComponent<TransformComponent>(16,320,56,32,1);
     player.addComponent<SpriteComponent>("GUI/player.png",1);
     player.addComponent<KeyboardHandling>();
     player.addComponent<ColliderComponent>("player");
@@ -173,8 +186,12 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     screen.addComponent<ColliderComponent>("screen");
 
 
-    topBorder.addComponent<TransformComponent>(0,0,0,gWidth,1);
-    topBorder.addComponent<ColliderComponent>("lBorder");
+    topBorder.addComponent<TransformComponent>(0,-10,10,gWidth,1);
+    topBorder.addComponent<ColliderComponent>("topBorder");
+
+    rightBorder.addComponent<TransformComponent>(1280,0,gHeight,14,1);
+    rightBorder.addComponent<ColliderComponent>("rBorder");
+
 
     grass1.addComponent<TransformComponent>(14,0,272-16,66,1);
     grass1.addComponent<ColliderComponent>("grass1");
@@ -220,6 +237,40 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
     rock5.addComponent<TransformComponent>(722,16+64*7+4,52-16,64*4-8,1);
     rock5.addComponent<ColliderComponent>("rock5");
+
+    lava1.addComponent<TransformComponent>(168,210, 40, 40, 1);
+    lava1.addComponent<SpriteComponent>("GUI/lava_.png",1);
+    lava1.addComponent<ColliderComponent>("lava1");
+
+    lava2.addComponent<TransformComponent>(272,81, 40, 40, 1);
+    lava2.addComponent<SpriteComponent>("GUI/lava_.png",1);
+    lava2.addComponent<ColliderComponent>("lava1");
+
+    lava3.addComponent<TransformComponent>(359,169, 40, 40, 1);
+    lava3.addComponent<SpriteComponent>("GUI/lava_.png",1);
+    lava3.addComponent<ColliderComponent>("lava1");
+
+    lava4.addComponent<TransformComponent>(444,19, 40, 40, 1);
+    lava4.addComponent<SpriteComponent>("GUI/lava.png",1);
+    lava4.addComponent<ColliderComponent>("lava1");
+    lava4.addComponent<AutoComponent>(0,1);
+
+    lava5.addComponent<TransformComponent>(541,169, 40, 40, 1);
+    lava5.addComponent<SpriteComponent>("GUI/lava.png",1);
+    lava5.addComponent<ColliderComponent>("lava1");
+    lava5.addComponent<AutoComponent>(0,2);
+
+    akainu.addComponent<TransformComponent>(665,19,128,64,1);
+    akainu.addComponent<SpriteComponent>("GUI/Akainu.png",1);
+    akainu.getComponent<SpriteComponent>().speed = 200;
+    akainu.getComponent<SpriteComponent>().spriteflip = SDL_FLIP_HORIZONTAL;
+
+
+
+    kuzan.addComponent<TransformComponent>(730,400,128,64,1);
+    kuzan.addComponent<SpriteComponent>("GUI/Kuzan.png",1);
+    kuzan.getComponent<SpriteComponent>().speed = 200;
+    kuzan.getComponent<SpriteComponent>().spriteflip = SDL_FLIP_HORIZONTAL;
 
     chest.addComponent<TransformComponent>(1240,540,40,40,1);
     chest.addComponent<SpriteComponent>("GUI/chest.png");
@@ -287,6 +338,8 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     fence1.addComponent<TransformComponent>(400, 20,120,16,1 );
     fence1.addComponent<SpriteComponent>("GUI/fence1.png");
     fence1.addComponent<ColliderComponent>("fence1");
+
+
 }
 void Game::handleEvent()
 {
@@ -316,20 +369,28 @@ void Game::update() {
 	manager.refresh();
 	manager.update();
 
+    score -= 100;
+
     //print life
     switch(HP)
     {
     case 4:
         life.getComponent<SpriteComponent>().setTex("GUI/hp-1.png");
+        break;
     case 3:
         life.getComponent<SpriteComponent>().setTex("GUI/hp-2.png");
+        break;
     case 2:
         life.getComponent<SpriteComponent>().setTex("GUI/hp-3.png");
+        break;
     case 1:
         life.getComponent<SpriteComponent>().setTex("GUI/hp-4.png");
+        break;
     case 0:
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"NOTE","YOU DIED",window);
-        isRunning = 0;
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,"ADMIN","YOU DIED",window);
+        isRunning = false;
+        break;
+
     }
     //got key
 
@@ -351,7 +412,39 @@ void Game::update() {
 
     }
 
+    //lavacol
+    if(Collision::AABB(lava4.getComponent<ColliderComponent>().collider,grass7.getComponent<ColliderComponent>().collider))
+    {
+        lava4.getComponent<AutoComponent>().dir = -1;
+    }
+    if(Collision::AABB(lava4.getComponent<ColliderComponent>().collider,topBorder.getComponent<ColliderComponent>().collider))
+    {
+        lava4.getComponent<AutoComponent>().dir = 1;
+    }
+    if(Collision::AABB(lava5.getComponent<ColliderComponent>().collider,grass6.getComponent<ColliderComponent>().collider))
+    {
+        lava5.getComponent<AutoComponent>().dir = -1;
+    }
+    if(Collision::AABB(lava5.getComponent<ColliderComponent>().collider,topBorder.getComponent<ColliderComponent>().collider))
+    {
+        lava5.getComponent<AutoComponent>().dir = 1;
+    }
 
+    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,lava1.getComponent<ColliderComponent>().collider))
+    {
+        player.getComponent<TransformComponent>().position = startPos;
+        HP-=1;
+
+    }
+    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,lava3.getComponent<ColliderComponent>().collider)
+            ||Collision::AABB(player.getComponent<ColliderComponent>().collider,lava4.getComponent<ColliderComponent>().collider)
+            ||Collision::AABB(player.getComponent<ColliderComponent>().collider,lava5.getComponent<ColliderComponent>().collider)
+            ||Collision::AABB(player.getComponent<ColliderComponent>().collider,lava2.getComponent<ColliderComponent>().collider))
+    {
+        player.getComponent<TransformComponent>().position = startPos;
+        HP-=1;
+
+    }
 
 	//std::cout<<mx<<" "<<my<<std::endl;
 
@@ -380,6 +473,7 @@ void Game::update() {
             can4 = 0;
         }
 
+
     }
 
     //quest 2
@@ -401,6 +495,8 @@ void Game::update() {
             Mix_PlayChannel(2,trueMix,1);
             quest2.getComponent<SpriteComponent>().Free();
             fence3.getComponent<SpriteComponent>().Free();
+
+
             can3 = 0;
             onQuest2 = 0;
             getHint2 = 1;
@@ -476,11 +572,11 @@ void Game::update() {
         isRunning = false;
     }
 
-    if (playerPos.x< -16 || playerPos.y< -16){
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Noti","You die",window);
-        isRunning = false;}
+
 	if (  Collision::AABB(player.getComponent<ColliderComponent>().collider, botBorder.getComponent<ColliderComponent>().collider)
         ||Collision::AABB(player.getComponent<ColliderComponent>().collider, topBorder.getComponent<ColliderComponent>().collider)
+        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, rightBorder.getComponent<ColliderComponent>().collider)
+        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, leftBorder.getComponent<ColliderComponent>().collider)
         ||Collision::AABB(player.getComponent<ColliderComponent>().collider, grass1.getComponent<ColliderComponent>().collider)
         ||Collision::AABB(player.getComponent<ColliderComponent>().collider, grass2.getComponent<ColliderComponent>().collider)
         ||Collision::AABB(player.getComponent<ColliderComponent>().collider, grass3.getComponent<ColliderComponent>().collider)
@@ -506,12 +602,16 @@ void Game::update() {
             std::cout << "Collision!" << std::endl;
 	}
 
+
+
+
 }
 void Game::render()
 {
     SDL_RenderClear(renderer);
     manager.draw();
-
+    scoreText->setText(std::to_string(score),{255, 255, 255, 255});
+    scoreText->render(675,16);
 
 
     SDL_RenderPresent(renderer);

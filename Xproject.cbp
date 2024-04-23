@@ -44,6 +44,7 @@
 			<Add directory="../../../SDL source/SDL2_ttf-2.22.0/i686-w64-mingw32/lib" />
 		</Linker>
 		<Unit filename="Anima.h" />
+		<Unit filename="AutoComponent.h" />
 		<Unit filename="ColiderComponent.h" />
 		<Unit filename="Collision.cpp" />
 		<Unit filename="Collision.h" />
@@ -56,6 +57,7 @@
 		<Unit filename="Object.cpp" />
 		<Unit filename="Object.h" />
 		<Unit filename="SpriteComponent.h" />
+		<Unit filename="Text.cpp" />
 		<Unit filename="Text.h" />
 		<Unit filename="Textures.cpp" />
 		<Unit filename="Textures.h" />

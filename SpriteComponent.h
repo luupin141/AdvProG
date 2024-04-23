@@ -13,9 +13,10 @@ private:
 
     bool animated = 0;
     int frames = 0;
-    int speed = 100;
+
 
 public:
+    int speed = 100;
     SDL_Texture *tex;
     int animaIndex = 0;
     SDL_Rect srcR, destR;
@@ -28,6 +29,8 @@ public:
     {
         setTex(path);
     }
+
+
     SpriteComponent(const char* path, bool isAnimated)
     {
         animated = isAnimated;

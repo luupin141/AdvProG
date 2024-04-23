@@ -5,7 +5,7 @@
 #include"TransformComponent.h"
 #include"SpriteComponent.h"
 #include"ColiderComponent.h"
-#include"Tactic.h"
+#include"AutoComponent.h"
 
 
 
