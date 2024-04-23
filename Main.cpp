@@ -22,6 +22,7 @@ int main(int argc, const char ** argv)
 
 
     //game loop
+
     while(game->running()){
 
         frameStart = SDL_GetTicks();

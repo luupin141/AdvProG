@@ -572,7 +572,7 @@
 1713727024 c:\users\admin\desktop\new folder\advprog\collision.h
 	<SDL.h>
 
-1713808051 source:c:\users\admin\desktop\new folder\advprog\game.cpp
+1713886726 source:c:\users\admin\desktop\new folder\advprog\game.cpp
 	"Game.h"
 	"Text.h"
 	"Textures.h"
@@ -593,10 +593,11 @@
 	<SDL_ttf.h>
 	<bits/stdc++.h>
 
-1713727025 c:\users\admin\desktop\new folder\advprog\text.h
-	"SDL_ttf.h"
-	"SDL.h"
-	"string"
+1713898971 c:\users\admin\desktop\new folder\advprog\text.h
+	"Game.h"
+	<SDL.h>
+	<SDL_ttf.h>
+	<string>
 
 1713727025 c:\users\admin\desktop\new folder\advprog\textures.h
 	"Game.h"
@@ -609,12 +610,12 @@
 	<bitset>
 	<array>
 
-1713727024 c:\users\admin\desktop\new folder\advprog\components.h
+1713862981 c:\users\admin\desktop\new folder\advprog\components.h
 	"ECS.h"
 	"TransformComponent.h"
 	"SpriteComponent.h"
 	"ColiderComponent.h"
-	"Tactic.h"
+	"AutoComponent.h"
 
 1713727025 c:\users\admin\desktop\new folder\advprog\transformcomponent.h
 	"Components.h"
@@ -623,7 +624,7 @@
 1713727025 c:\users\admin\desktop\new folder\advprog\vector2d.h
 	<iostream>
 
-1713808946 c:\users\admin\desktop\new folder\advprog\spritecomponent.h
+1713881342 c:\users\admin\desktop\new folder\advprog\spritecomponent.h
 	"Components.h"
 	"Anima.h"
 	"Textures.h"
@@ -647,7 +648,7 @@
 	"ECS.h"
 	"Components.h"
 
-1713727024 source:c:\users\admin\desktop\new folder\advprog\main.cpp
+1713897259 source:c:\users\admin\desktop\new folder\advprog\main.cpp
 	"Game.h"
 	"ECS.h"
 	"Components.h"
@@ -670,4 +671,11 @@
 1713727025 c:\users\admin\desktop\new folder\advprog\tactic.h
 	"Components.h"
 	"Vector2D.h"
+
+1713863863 c:\users\admin\desktop\new folder\advprog\autocomponent.h
+	"Components.h"
+	"Vector2D.h"
+
+1713899144 source:c:\users\admin\desktop\new folder\advprog\text.cpp
+	"Text.h"
 

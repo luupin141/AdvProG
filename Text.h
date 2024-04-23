@@ -1,21 +1,24 @@
-#ifndef Text_h
-#define Text_h
+#ifndef TEXT_H
+#define TEXT_H
 
-#include"SDL_ttf.h"
-#include"SDL.h"
-#include"string"
+#include"Game.h"
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include <string>
 
 class Text {
 public:
-    Text(const std::string& text, const std::string& fontPath, int fontSize, SDL_Color color);
+    Text(SDL_Renderer* renderer, const std::string& fontPath, int fontSize);
     ~Text();
 
-    void render(SDL_Renderer* renderer, int x, int y);
+    void loadFont(const std::string& fontPath, int fontSize);
+    void setText(const std::string& text, SDL_Color color);
+    void render(int x, int y);
 
 private:
     TTF_Font* font;
     SDL_Texture* texture;
-    SDL_Rect destRect;
+    SDL_Renderer* renderer;
 };
 
-#endif // Text_h
+#endif // TEXT_H
