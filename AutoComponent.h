@@ -20,7 +20,6 @@ public:
     {
         Auto.x = x;
         Auto.y = y;
-
     }
     void init() override
     {
