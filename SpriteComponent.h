@@ -73,7 +73,7 @@ public:
     {
 
 
-        if(animated) srcR.x = srcR.w * (int)((SDL_GetTicks()/speed)%frames);
+        if(animated) srcR.x = srcR.w * (int)((SDL_GetTicks()/speed%frames));
 
         srcR.y = animaIndex * trans->height;
         destR.x = trans->position.x;

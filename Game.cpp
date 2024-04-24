@@ -17,13 +17,14 @@ int my;
 int HP = 5;
 int score = 10000;
 Vector2D startPos(16,320);
-Text *scoreText = NULL;
+
 
 //mix init
 Mix_Chunk *menuMix = NULL;
 Mix_Chunk *gameMix = NULL;
 Mix_Chunk *trueMix = NULL;
 Mix_Chunk *falseMix = NULL;
+Mix_Chunk *hitMix = NULL;
 
 //controller
 bool gameStart = 0;
@@ -98,14 +99,38 @@ auto& lava4(manager.addEntity());
 auto& lava5(manager.addEntity());
 auto& akainu(manager.addEntity());
 //kuzan phase
+auto& lim1(manager.addEntity());
+auto& lim2(manager.addEntity());
+auto& frost1(manager.addEntity());
+auto& frost2(manager.addEntity());
+auto& frost3(manager.addEntity());
+auto& frost4(manager.addEntity());
+auto& frost5(manager.addEntity());
+auto& frost6(manager.addEntity());
+auto& iceSl3(manager.addEntity());
+auto& iceSl1(manager.addEntity());
+auto& iceSl2(manager.addEntity());
+auto& iceSp1(manager.addEntity());
+auto& iceSp2(manager.addEntity());
+auto& floatIce1(manager.addEntity());
+auto& floatIce2(manager.addEntity());
+auto& floatIce3(manager.addEntity());
+auto& floatIce4(manager.addEntity());
 auto& kuzan(manager.addEntity());
+//kizaru phase
+auto& flash1(manager.addEntity());
+auto& flash2(manager.addEntity());
+auto& flash3(manager.addEntity());
+auto& flash4(manager.addEntity());
+auto& lightBall1(manager.addEntity());
+auto& lightBall2(manager.addEntity());
+auto& lightBall3(manager.addEntity());
+auto& lightBall4(manager.addEntity());
+auto& kizaru(manager.addEntity());
 //after interact
 auto& hint1(manager.addEntity());
-
 auto& hint2(manager.addEntity());
-
 auto& hint3(manager.addEntity());
-
 auto& hint4(manager.addEntity());
 
 //effect
@@ -134,9 +159,6 @@ Game::~Game()
 
 void Game::init(const char* title, int width, int height, bool fullscreen)
 {
-
-
-
     if(SDL_Init(SDL_INIT_EVERYTHING)==0)
     {
         std::cout<<"khoitaothanhcong"<<std::endl;
@@ -157,7 +179,8 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
         gameMix = Mix_LoadWAV("Mixer/game.wav");
         trueMix = Mix_LoadWAV("Mixer/true.wav");
         falseMix = Mix_LoadWAV("Mixer/wrong.wav");
-        scoreText->loadFont("monogram-extended.ttf",80);
+        hitMix = Mix_LoadWAV("Mixer/hit.wav");
+
     }
     else isRunning = false;
 
@@ -174,7 +197,6 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     player.addComponent<SpriteComponent>("GUI/player.png",1);
     player.addComponent<KeyboardHandling>();
     player.addComponent<ColliderComponent>("player");
-
 
     botBorder.addComponent<TransformComponent>(0,gHeight-16,16,gWidth,1);
     botBorder.addComponent<ColliderComponent>("botBorder");
@@ -264,13 +286,90 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     akainu.addComponent<SpriteComponent>("GUI/Akainu.png",1);
     akainu.getComponent<SpriteComponent>().speed = 200;
     akainu.getComponent<SpriteComponent>().spriteflip = SDL_FLIP_HORIZONTAL;
+    //
+    lim1.addComponent<TransformComponent>(848,144,2,192,1);
+    lim1.addComponent<ColliderComponent>("lim1");
 
+    lim2.addComponent<TransformComponent>(721,529,1,319,1);
+    lim2.addComponent<ColliderComponent>("lim1");
 
+    frost1.addComponent<TransformComponent>(920,295,40,40,1);
+    frost1.addComponent<SpriteComponent>("GUI/frost.png",1);
+    frost1.getComponent<SpriteComponent>().speed = 200;
+    frost1.addComponent<ColliderComponent>("frost1");
 
-    kuzan.addComponent<TransformComponent>(730,400,128,64,1);
+    frost2.addComponent<TransformComponent>(920,343,40,40,1);
+    frost2.addComponent<SpriteComponent>("GUI/frost.png",1);
+    frost2.getComponent<SpriteComponent>().speed = 200;
+    frost2.addComponent<ColliderComponent>("frost2");
+
+    frost3.addComponent<TransformComponent>(550,330,40,40,1);
+    frost3.addComponent<SpriteComponent>("GUI/frost.png",1);
+    frost3.getComponent<SpriteComponent>().speed = 200;
+    frost3.addComponent<ColliderComponent>("frost3");
+
+    frost4.addComponent<TransformComponent>(555,472,40,40,1);
+    frost4.addComponent<SpriteComponent>("GUI/frost.png",1);
+    frost4.getComponent<SpriteComponent>().speed = 200;
+    frost4.addComponent<ColliderComponent>("frost4");
+
+    frost5.addComponent<TransformComponent>(675,365,40,40,1);
+    frost5.addComponent<SpriteComponent>("GUI/frost.png",1);
+    frost5.getComponent<SpriteComponent>().speed = 200;
+    frost5.addComponent<ColliderComponent>("frost5");
+
+    frost6.addComponent<TransformComponent>(793,391,40,40,1);
+    frost6.addComponent<SpriteComponent>("GUI/frost.png",1);
+    frost6.getComponent<SpriteComponent>().speed = 200;
+    frost6.addComponent<ColliderComponent>("frost6");
+
+    iceSl1.addComponent<TransformComponent>(596,317,50,197,1);
+    iceSl1.addComponent<ColliderComponent>("isl1");
+
+    iceSl2.addComponent<TransformComponent>(793,317,70,120,1);
+    iceSl2.addComponent<ColliderComponent>("isl2");
+
+    iceSl3.addComponent<TransformComponent>(602,467,50,60,1);
+    iceSl3.addComponent<ColliderComponent>("isl_1");
+
+    floatIce1.addComponent<TransformComponent>(848,18,40,40,1);
+    floatIce1.addComponent<SpriteComponent>("GUI/floatice.png",1);
+    floatIce1.addComponent<ColliderComponent>("flIce1");
+    floatIce1.addComponent<AutoComponent>(0,2);
+
+    floatIce2.addComponent<TransformComponent>(947,106,40,40,1);
+    floatIce2.addComponent<SpriteComponent>("GUI/floatice.png",1);
+    floatIce2.addComponent<ColliderComponent>("flIce2");
+    floatIce2.addComponent<AutoComponent>(0,3);
+
+    floatIce3.addComponent<TransformComponent>(760,531,35,40,1);
+    floatIce3.addComponent<SpriteComponent>("GUI/floatice.png",1);
+    floatIce3.addComponent<ColliderComponent>("flIce3");
+    floatIce3.addComponent<AutoComponent>(0,2);
+
+    floatIce4.addComponent<TransformComponent>(850,584,35,40,1);
+    floatIce4.addComponent<SpriteComponent>("GUI/floatice.png",1);
+    floatIce4.addComponent<ColliderComponent>("flIce4");
+    floatIce4.addComponent<AutoComponent>(0,1);
+
+    iceSp1.addComponent<TransformComponent>(723,318,48,64,1);
+    iceSp1.addComponent<SpriteComponent>("GUI/icespell.png",1);
+
+    iceSp2.addComponent<TransformComponent>(723,387,48,64,1);
+    iceSp2.addComponent<SpriteComponent>("GUI/icespell.png",1);
+
+    kuzan.addComponent<TransformComponent>(840,400,128,64,1);
     kuzan.addComponent<SpriteComponent>("GUI/Kuzan.png",1);
     kuzan.getComponent<SpriteComponent>().speed = 200;
     kuzan.getComponent<SpriteComponent>().spriteflip = SDL_FLIP_HORIZONTAL;
+    //
+    flash1.addComponent<TransformComponent>();
+
+    kizaru.addComponent<TransformComponent>(982,292,128,64,1);
+    kizaru.addComponent<SpriteComponent>("GUI/Kizaru.png",1);
+    kizaru.getComponent<SpriteComponent>().speed = 200;
+
+
 
     chest.addComponent<TransformComponent>(1240,540,40,40,1);
     chest.addComponent<SpriteComponent>("GUI/chest.png");
@@ -331,7 +430,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     fence3.addComponent<SpriteComponent>("GUI/fence3.png");
     fence3.addComponent<ColliderComponent>("fence3");
 
-    fence2.addComponent<TransformComponent>(720, 257,16,180,1 );
+    fence2.addComponent<TransformComponent>(720, 235,12,180,1 );
     fence2.addComponent<SpriteComponent>("GUI/fence2.png");
     fence2.addComponent<ColliderComponent>("fence2");
 
@@ -365,6 +464,7 @@ void Game::handleEvent()
 }
 
 void Game::update() {
+
     Vector2D playerPos = player.getComponent<TransformComponent>().position ;
 	manager.refresh();
 	manager.update();
@@ -392,7 +492,7 @@ void Game::update() {
         break;
 
     }
-    //got key
+
 
     //play mix
     if(!gameStart&&playMenuMix==0){Mix_PlayChannel(-1,menuMix,-1);
@@ -412,7 +512,7 @@ void Game::update() {
 
     }
 
-    //lavacol
+    //lava collision
     if(Collision::AABB(lava4.getComponent<ColliderComponent>().collider,grass7.getComponent<ColliderComponent>().collider))
     {
         lava4.getComponent<AutoComponent>().dir = -1;
@@ -430,31 +530,84 @@ void Game::update() {
         lava5.getComponent<AutoComponent>().dir = 1;
     }
 
-    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,lava1.getComponent<ColliderComponent>().collider))
+    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,lava1.getComponent<ColliderComponent>().collider)||Collision::AABB(player.getComponent<ColliderComponent>().collider,lava3.getComponent<ColliderComponent>().collider)
+        ||Collision::AABB(player.getComponent<ColliderComponent>().collider,lava4.getComponent<ColliderComponent>().collider)
+        ||Collision::AABB(player.getComponent<ColliderComponent>().collider,lava5.getComponent<ColliderComponent>().collider)
+        ||Collision::AABB(player.getComponent<ColliderComponent>().collider,lava2.getComponent<ColliderComponent>().collider))
     {
+        Mix_PlayChannel(-1,hitMix,0);
         player.getComponent<TransformComponent>().position = startPos;
         HP-=1;
-
     }
-    if(Collision::AABB(player.getComponent<ColliderComponent>().collider,lava3.getComponent<ColliderComponent>().collider)
-            ||Collision::AABB(player.getComponent<ColliderComponent>().collider,lava4.getComponent<ColliderComponent>().collider)
-            ||Collision::AABB(player.getComponent<ColliderComponent>().collider,lava5.getComponent<ColliderComponent>().collider)
-            ||Collision::AABB(player.getComponent<ColliderComponent>().collider,lava2.getComponent<ColliderComponent>().collider))
+//
+	std::cout<<mx<<" "<<my<<std::endl;
+
+    //frozen collision
+    if(Collision::AABB(floatIce1.getComponent<ColliderComponent>().collider,topBorder.getComponent<ColliderComponent>().collider))
     {
+        floatIce1.getComponent<AutoComponent>().dir = 1;
+    }
+    if(Collision::AABB(floatIce1.getComponent<ColliderComponent>().collider,lim1.getComponent<ColliderComponent>().collider))
+    {
+        floatIce1.getComponent<AutoComponent>().dir = -1;
+    }
+    if(Collision::AABB(floatIce2.getComponent<ColliderComponent>().collider,topBorder.getComponent<ColliderComponent>().collider))
+    {
+        floatIce2.getComponent<AutoComponent>().dir = 1;
+    }
+    if(Collision::AABB(floatIce2.getComponent<ColliderComponent>().collider,lim1.getComponent<ColliderComponent>().collider))
+    {
+        floatIce2.getComponent<AutoComponent>().dir = -1;
+    }
+    if(Collision::AABB(floatIce3.getComponent<ColliderComponent>().collider,lim2.getComponent<ColliderComponent>().collider))
+    {
+        floatIce3.getComponent<AutoComponent>().dir = 1;
+    }
+    if(Collision::AABB(floatIce3.getComponent<ColliderComponent>().collider,botBorder.getComponent<ColliderComponent>().collider))
+    {
+        floatIce3.getComponent<AutoComponent>().dir = -1;
+    }
+    if(Collision::AABB(floatIce4.getComponent<ColliderComponent>().collider,lim2.getComponent<ColliderComponent>().collider))
+    {
+        floatIce4.getComponent<AutoComponent>().dir = 1;
+    }
+    if(Collision::AABB(floatIce4.getComponent<ColliderComponent>().collider,botBorder.getComponent<ColliderComponent>().collider))
+    {
+        floatIce4.getComponent<AutoComponent>().dir = -1;
+    }
+    if(Collision::AABB(player.getComponent<ColliderComponent>().collider, iceSl1.getComponent<ColliderComponent>().collider)
+       ||Collision::AABB(player.getComponent<ColliderComponent>().collider, iceSl3.getComponent<ColliderComponent>().collider))
+    {
+        player.getComponent<TransformComponent>().position.x -= 3;
+    }
+    if(Collision::AABB(player.getComponent<ColliderComponent>().collider, iceSl2.getComponent<ColliderComponent>().collider))
+    {
+        player.getComponent<TransformComponent>().position.x += 3;
+    }
+
+
+
+    if(Collision::AABB(player.getComponent<ColliderComponent>().collider, frost1.getComponent<ColliderComponent>().collider)
+       || Collision::AABB(player.getComponent<ColliderComponent>().collider, frost2.getComponent<ColliderComponent>().collider)
+       || Collision::AABB(player.getComponent<ColliderComponent>().collider, frost3.getComponent<ColliderComponent>().collider)
+       || Collision::AABB(player.getComponent<ColliderComponent>().collider, frost4.getComponent<ColliderComponent>().collider)
+       || Collision::AABB(player.getComponent<ColliderComponent>().collider, frost5.getComponent<ColliderComponent>().collider)
+       || Collision::AABB(player.getComponent<ColliderComponent>().collider, frost6.getComponent<ColliderComponent>().collider)
+       || Collision::AABB(player.getComponent<ColliderComponent>().collider, floatIce1.getComponent<ColliderComponent>().collider)
+       || Collision::AABB(player.getComponent<ColliderComponent>().collider, floatIce2.getComponent<ColliderComponent>().collider)
+       || Collision::AABB(player.getComponent<ColliderComponent>().collider, floatIce3.getComponent<ColliderComponent>().collider)
+       || Collision::AABB(player.getComponent<ColliderComponent>().collider, floatIce4.getComponent<ColliderComponent>().collider))
+    {
+        Mix_PlayChannel(-1,hitMix,0);
         player.getComponent<TransformComponent>().position = startPos;
         HP-=1;
-
     }
 
-	//std::cout<<mx<<" "<<my<<std::endl;
-
+    //q&a
 	//quest 1
-
     if(Collision::AABB(player.getComponent<ColliderComponent>().collider,rock1.getComponent<ColliderComponent>().collider)&&(!getHint1))
     {
-
         onQuest1 = 1;
-
     }
 
     if(onQuest1 == 1)
@@ -463,27 +616,19 @@ void Game::update() {
         hint1.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_6)
         {
-            Mix_PlayChannel(1,trueMix,1);
-
+            Mix_PlayChannel(-1,trueMix,0);
             quest1.getComponent<SpriteComponent>().Free();
             fence4.getComponent<SpriteComponent>().Free();
-
             onQuest1 = 0;
             getHint1 = 1;
             can4 = 0;
         }
-
-
     }
 
     //quest 2
-
-
     if(Collision::AABB(player.getComponent<ColliderComponent>().collider,scroll2.getComponent<ColliderComponent>().collider)&&(!getHint2))
     {
-
         onQuest2 = 1;
-
     }
 
     if(onQuest2 == 1)
@@ -492,26 +637,20 @@ void Game::update() {
         hint2.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_2)
         {
-            Mix_PlayChannel(2,trueMix,1);
+            Mix_PlayChannel(-1,trueMix,0);
             quest2.getComponent<SpriteComponent>().Free();
             fence3.getComponent<SpriteComponent>().Free();
-
-
             can3 = 0;
             onQuest2 = 0;
             getHint2 = 1;
-
         }
-
     }
 
     //quest3
 
     if(Collision::AABB(player.getComponent<ColliderComponent>().collider,scroll3.getComponent<ColliderComponent>().collider)&&(!getHint3))
     {
-
         onQuest3 = 1;
-
     }
 
     if(onQuest3 == 1)
@@ -520,15 +659,13 @@ void Game::update() {
         hint3.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_0)
         {
-            Mix_PlayChannel(3,trueMix,1);
-
+            Mix_PlayChannel(-1,trueMix,0);
             quest3.getComponent<TransformComponent>().Free();
             fence2.getComponent<SpriteComponent>().Free();
             can2 = 0;
             onQuest3 = 0;
             getHint3 = 1;
         }
-
     }
 
     //quest4
@@ -545,7 +682,7 @@ void Game::update() {
         hint4.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_d)
         {
-            Mix_PlayChannel(4,trueMix,1);
+            Mix_PlayChannel(-1,trueMix,0);
 
             quest4.getComponent<SpriteComponent>().Free();
             fence1.getComponent<SpriteComponent>().Free();
@@ -556,23 +693,18 @@ void Game::update() {
         }
 
     }
-
-
-
-
+    //got the key
     if(can4==0)
     {
         gotKey = true;
         key.getComponent<SpriteComponent>().setTex("GUI/key1.png");
-
     }
     if(gotKey&&Collision::AABB(player.getComponent<ColliderComponent>().collider, chest.getComponent<ColliderComponent>().collider))
     {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT,"CONGRATULATION","YOU WIN",window);
         isRunning = false;
     }
-
-
+    //common collide
 	if (  Collision::AABB(player.getComponent<ColliderComponent>().collider, botBorder.getComponent<ColliderComponent>().collider)
         ||Collision::AABB(player.getComponent<ColliderComponent>().collider, topBorder.getComponent<ColliderComponent>().collider)
         ||Collision::AABB(player.getComponent<ColliderComponent>().collider, rightBorder.getComponent<ColliderComponent>().collider)
@@ -610,9 +742,6 @@ void Game::render()
 {
     SDL_RenderClear(renderer);
     manager.draw();
-    scoreText->setText(std::to_string(score),{255, 255, 255, 255});
-    scoreText->render(675,16);
-
 
     SDL_RenderPresent(renderer);
 }
