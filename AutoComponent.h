@@ -7,7 +7,8 @@
 class AutoComponent : public Component
 {
 public:
-    int dir = 1;
+    int dirX = 1;
+    int dirY = 1;
     Vector2D Auto;
     TransformComponent *trans;
 
@@ -33,8 +34,8 @@ public:
 
     void update() override
     {
-        trans->position.y += dir * Auto.y;
-        trans->position.x += dir * Auto.x;
+        trans->position.y += dirY * Auto.y;
+        trans->position.x += dirX * Auto.x;
     }
 
 

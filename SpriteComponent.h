@@ -71,8 +71,6 @@ public:
     }
     void update() override
     {
-
-
         if(animated) srcR.x = srcR.w * (int)((SDL_GetTicks()/speed%frames));
 
         srcR.y = animaIndex * trans->height;

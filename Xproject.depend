@@ -572,7 +572,7 @@
 1713727024 c:\users\admin\desktop\new folder\advprog\collision.h
 	<SDL.h>
 
-1713986368 source:c:\users\admin\desktop\new folder\advprog\game.cpp
+1714039367 source:c:\users\admin\desktop\new folder\advprog\game.cpp
 	"Game.h"
 	"Text.h"
 	"Textures.h"
@@ -625,7 +625,7 @@
 1713727025 c:\users\admin\desktop\new folder\advprog\vector2d.h
 	<iostream>
 
-1713974176 c:\users\admin\desktop\new folder\advprog\spritecomponent.h
+1714034700 c:\users\admin\desktop\new folder\advprog\spritecomponent.h
 	"Components.h"
 	"Anima.h"
 	"Textures.h"
@@ -673,7 +673,7 @@
 	"Components.h"
 	"Vector2D.h"
 
-1713983717 c:\users\admin\desktop\new folder\advprog\autocomponent.h
+1714032971 c:\users\admin\desktop\new folder\advprog\autocomponent.h
 	"Components.h"
 	"Vector2D.h"
 
