@@ -11,7 +11,7 @@ const int FPS = 60;//adjust framerate
 const int frameDelay = 1000/FPS;
 Uint32 frameStart;
 int frameTime;
-
+int thoigian = 0;
 
 
 int main(int argc, const char ** argv)
@@ -19,15 +19,10 @@ int main(int argc, const char ** argv)
     game = new Game();
     game->init("X", gWidth, gHeight, SDL_WINDOW_SHOWN);//initialize
 
-
-
     //game loop
 
     while(game->running()){
-
         frameStart = SDL_GetTicks();
-
-
         game->handleEvent();
         game->update();
         game->render();
