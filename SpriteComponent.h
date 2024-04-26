@@ -39,12 +39,10 @@ public:
         Anima idle = Anima(0,6,100);
         Anima walk = Anima(1,6,100);
         Anima dash = Anima(2,4,100);
-        Anima punch = Anima(3,7,100);
 
         animations.emplace("Idle", idle);
         animations.emplace("Walk", walk);
         animations.emplace("Dash", dash);
-        animations.emplace("Punch", punch);
         Play("Idle");
 
         setTex(path);
