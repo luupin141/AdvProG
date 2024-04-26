@@ -9,7 +9,7 @@
 const int gHeight= 640;
 const int gWidth = 1280 ;
 
-class ColliderComponent;
+
 
 
 class Game
@@ -26,11 +26,8 @@ public:
 
     bool running(){return isRunning;}
 
-
-
     static SDL_Renderer *renderer;
     static SDL_Event event;
-
 private:
 
     bool isRunning;
