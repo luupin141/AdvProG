@@ -17,6 +17,7 @@ private:
 
 public:
     int speed = 100;
+    const char* path;
     SDL_Texture *tex;
     int animaIndex = 0;
     SDL_Rect srcR, destR;
@@ -67,7 +68,6 @@ public:
         srcR.x = srcR.y = 0;
         srcR.w = trans->width;
         srcR.h = trans->height;
-
     }
     void update() override
     {

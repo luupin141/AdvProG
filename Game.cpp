@@ -12,19 +12,18 @@
 #include "vector"
 #include"string"
 //init elements
-int mx;
-int my;
+int mx = rand()%1228 + 1041;
+int my = rand()%490 + 20;
 int HP = 5;
 int score = 140000;
 Vector2D startPos(16,320);
-
+Vector2D ranPos(mx,my);
 
 //mix init
 Mix_Chunk *guideMix = NULL;
 Mix_Chunk *menuMix = NULL;
 Mix_Chunk *gameMix = NULL;
 Mix_Chunk *trueMix = NULL;
-
 Mix_Chunk *hitMix = NULL;
 Mix_Chunk *catchMix = NULL;
 
@@ -38,6 +37,7 @@ bool getHint4 = 0;
 bool getKit1 = 0;
 bool getKit2 = 0;
 bool getKit3 = 0;
+bool getKit4 = 0;
 bool playMenuMix = 0;
 bool playGameMix = 0;
 bool onQuest1 = 0;
@@ -49,6 +49,10 @@ bool can3 = 1;
 bool can2 = 1;
 bool can1 = 1;
 bool gotKey = 0;
+bool turn1 = 0;
+bool turn2 = 0;
+bool turn3 = 0;
+bool turn4 = 0;
 
 
 //
@@ -94,11 +98,11 @@ auto& screen(manager.addEntity());
 auto& chest(manager.addEntity());
 auto& pwup(manager.addEntity());
 auto& player(manager.addEntity());
-auto& key(manager.addEntity());
 auto& life(manager.addEntity());
 auto& medkit1(manager.addEntity());
 auto& medkit2(manager.addEntity());
 auto& medkit3(manager.addEntity());
+auto& medkit4(manager.addEntity());
 //akainu phase
 auto& lava1(manager.addEntity());
 auto& lava2(manager.addEntity());
@@ -109,6 +113,7 @@ auto& akainu(manager.addEntity());
 //kuzan phase
 auto& lim1(manager.addEntity());
 auto& lim2(manager.addEntity());
+auto& lim3(manager.addEntity());
 auto& frost1(manager.addEntity());
 auto& frost2(manager.addEntity());
 auto& frost3(manager.addEntity());
@@ -130,6 +135,7 @@ auto& flash1(manager.addEntity());
 auto& flash2(manager.addEntity());
 auto& flash3(manager.addEntity());
 auto& flash4(manager.addEntity());
+auto& flash5(manager.addEntity());
 auto& lightBall1(manager.addEntity());
 auto& lightBall2(manager.addEntity());
 auto& lightBall3(manager.addEntity());
@@ -150,7 +156,7 @@ auto& hint4(manager.addEntity());
 //menu
 auto& menu(manager.addEntity());
 auto& menu2(manager.addEntity());
-
+auto& victory(manager.addEntity());
 
 //question
 auto& quest1(manager.addEntity());
@@ -285,6 +291,10 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     medkit3.addComponent<SpriteComponent>("GUI/medkit.png",1);
     medkit3.addComponent<ColliderComponent>("mk2");
 
+    medkit4.addComponent<TransformComponent>(1150,325,32,32,1);
+    medkit4.addComponent<SpriteComponent>("GUI/medkit.png",1);
+    medkit4.addComponent<ColliderComponent>("mk2");
+
     lava1.addComponent<TransformComponent>(168,210, 40, 40, 1);
     lava1.addComponent<SpriteComponent>("GUI/lava_.png",1);
     lava1.addComponent<ColliderComponent>("lava1");
@@ -318,6 +328,8 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     lim2.addComponent<TransformComponent>(721,529,1,319,1);
     lim2.addComponent<ColliderComponent>("lim1");
 
+    lim3.addComponent<TransformComponent>(1040,19,620,1,1);
+    lim3.addComponent<ColliderComponent>("lim3");
     frost1.addComponent<TransformComponent>(920,295,40,40,1);
     frost1.addComponent<SpriteComponent>("GUI/frost.png",1);
     frost1.getComponent<SpriteComponent>().speed = 200;
@@ -393,18 +405,67 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     flash1.addComponent<TransformComponent>(1040,150,40,40,1);
     flash1.addComponent<SpriteComponent>("GUI/flash.png",1);
     flash1.addComponent<ColliderComponent>("flash1");
+    flash1.addComponent<AutoComponent>(-2,0);
 
     flash2.addComponent<TransformComponent>(1238,282,40,40,1);
     flash2.addComponent<SpriteComponent>("GUI/flash.png",1);
     flash2.addComponent<ColliderComponent>("flash1");
+    flash2.addComponent<AutoComponent>(2,0);
 
     flash3.addComponent<TransformComponent>(1040,403,40,40,1);
     flash3.addComponent<SpriteComponent>("GUI/flash.png",1);
     flash3.addComponent<ColliderComponent>("flash1");
+    flash3.addComponent<AutoComponent>(-2,0);
 
     flash4.addComponent<TransformComponent>(1238,497,40,40,1);
     flash4.addComponent<SpriteComponent>("GUI/flash.png",1);
     flash4.addComponent<ColliderComponent>("flash1");
+    flash4.addComponent<AutoComponent>(2,0);
+
+    flash5.addComponent<TransformComponent>(1040,555,40,40,1);
+    flash5.addComponent<SpriteComponent>("GUI/flash.png",1);
+    flash5.addComponent<ColliderComponent>("flash1");
+    flash5.addComponent<AutoComponent>(-2,0);
+
+    lightBall1.addComponent<TransformComponent>(1050,22,20,20,1);
+    lightBall1.addComponent<SpriteComponent>("GUI/lightball.png",1);
+    lightBall1.addComponent<ColliderComponent>("lb1");
+    lightBall1.addComponent<AutoComponent>(-1,-1);
+
+    lightBall2.addComponent<TransformComponent>(1242,22,20,20,1);
+    lightBall2.addComponent<SpriteComponent>("GUI/lightball.png",1);
+    lightBall2.addComponent<ColliderComponent>("lb2");
+    lightBall2.addComponent<AutoComponent>(1,1);
+
+    lightBall3.addComponent<TransformComponent>(1050,232,20,20,1);
+    lightBall3.addComponent<SpriteComponent>("GUI/lightball.png",1);
+    lightBall3.addComponent<ColliderComponent>("lb3");
+    lightBall3.addComponent<AutoComponent>(-1,-1);
+
+    lightBall4.addComponent<TransformComponent>(1242,232,20,20,1);
+    lightBall4.addComponent<SpriteComponent>("GUI/lightball.png",1);
+    lightBall4.addComponent<ColliderComponent>("lb4");
+    lightBall4.addComponent<AutoComponent>(1,1);
+
+    lightBall5.addComponent<TransformComponent>(1050,443,20,20,1);
+    lightBall5.addComponent<SpriteComponent>("GUI/lightball.png",1);
+    lightBall5.addComponent<ColliderComponent>("lb5");
+    lightBall5.addComponent<AutoComponent>(-1,-1);
+
+    lightBall6.addComponent<TransformComponent>(1242,443,20,20,1);
+    lightBall6.addComponent<SpriteComponent>("GUI/lightball.png",1);
+    lightBall6.addComponent<ColliderComponent>("lb6");
+    lightBall6.addComponent<AutoComponent>(1,1);
+
+    lightBall7.addComponent<TransformComponent>(1050,535,20,20,1);
+    lightBall7.addComponent<SpriteComponent>("GUI/lightball.png",1);
+    lightBall7.addComponent<ColliderComponent>("lb7");
+    lightBall7.addComponent<AutoComponent>(-1,-1);
+
+    lightBall8.addComponent<TransformComponent>(1242,535,20,20,1);
+    lightBall8.addComponent<SpriteComponent>("GUI/lightball.png",1);
+    lightBall8.addComponent<ColliderComponent>("lb6");
+    lightBall8.addComponent<AutoComponent>(1,1);
 
     kizaru.addComponent<TransformComponent>(982,292,128,64,1);
     kizaru.addComponent<SpriteComponent>("GUI/Kizaru.png",1);
@@ -413,9 +474,6 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     chest.addComponent<TransformComponent>(1240,540,40,40,1);
     chest.addComponent<SpriteComponent>("GUI/chest.png");
     chest.addComponent<ColliderComponent>("chest");
-
-    key.addComponent<TransformComponent>(32,68,40,40,1);
-    key.addComponent<SpriteComponent>("GUI/key.png");
 
     hint1.addComponent<TransformComponent>(215,375,85,160,1);
     hint1.addComponent<SpriteComponent>("GUI/cover.png");
@@ -585,9 +643,7 @@ void Game::update() {
         player.getComponent<TransformComponent>().position = startPos;
         HP-=1;
     }
-//
-	std::cout<<mx<<" "<<my<<std::endl;
-    std::cout<<HP<<std::endl;
+
     //frozen collision
     if(Collision::AABB(floatIce1.getComponent<ColliderComponent>().collider,topBorder.getComponent<ColliderComponent>().collider))
     {
@@ -673,15 +729,210 @@ void Game::update() {
         if(HP<5) HP+=1;
         getKit3 = 1;
     }
+    if(!getKit4&&Collision::AABB(player.getComponent<ColliderComponent>().collider, medkit4.getComponent<ColliderComponent>().collider))
+    {
+        Mix_PlayChannel(-1,catchMix,0);
+        medkit4.getComponent<SpriteComponent>().Free();
+        if(HP<5) HP+=1;
+        getKit4 = 1;
+    }
     //kizaru collision
     if(Collision::AABB(player.getComponent<ColliderComponent>().collider, flash1.getComponent<ColliderComponent>().collider)
        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, flash2.getComponent<ColliderComponent>().collider)
        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, flash3.getComponent<ColliderComponent>().collider)
        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, flash4.getComponent<ColliderComponent>().collider))
     {
-
+        player.getComponent<TransformComponent>().position = ranPos;
     }
 
+    if(Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall1.getComponent<ColliderComponent>().collider)
+       ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall2.getComponent<ColliderComponent>().collider)
+       ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall3.getComponent<ColliderComponent>().collider)
+       ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall4.getComponent<ColliderComponent>().collider)
+       ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall5.getComponent<ColliderComponent>().collider)
+       ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall6.getComponent<ColliderComponent>().collider))
+    {
+        Mix_PlayChannel(-1,hitMix,0);
+        player.getComponent<TransformComponent>().position = startPos;
+        HP--;
+    }
+//
+    if(Collision::AABB(rightBorder.getComponent<ColliderComponent>().collider, lightBall1.getComponent<ColliderComponent>().collider))
+    {
+        lightBall1.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(topBorder.getComponent<ColliderComponent>().collider, lightBall1.getComponent<ColliderComponent>().collider))
+    {
+        lightBall1.getComponent<AutoComponent>().dirY = -1;
+    }
+    if(Collision::AABB(lim3.getComponent<ColliderComponent>().collider, lightBall1.getComponent<ColliderComponent>().collider))
+    {
+        lightBall1.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(botBorder.getComponent<ColliderComponent>().collider, lightBall1.getComponent<ColliderComponent>().collider))
+    {
+        lightBall1.getComponent<AutoComponent>().dirY = 1;
+    }
+//
+    if(Collision::AABB(rightBorder.getComponent<ColliderComponent>().collider, lightBall3.getComponent<ColliderComponent>().collider))
+    {
+        lightBall3.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(topBorder.getComponent<ColliderComponent>().collider, lightBall3.getComponent<ColliderComponent>().collider))
+    {
+        lightBall3.getComponent<AutoComponent>().dirY = -1;
+    }
+    if(Collision::AABB(lim3.getComponent<ColliderComponent>().collider, lightBall3.getComponent<ColliderComponent>().collider))
+    {
+        lightBall3.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(botBorder.getComponent<ColliderComponent>().collider, lightBall3.getComponent<ColliderComponent>().collider))
+    {
+        lightBall3.getComponent<AutoComponent>().dirY = 1;
+    }
+//
+    if(Collision::AABB(rightBorder.getComponent<ColliderComponent>().collider, lightBall5.getComponent<ColliderComponent>().collider))
+    {
+        lightBall5.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(topBorder.getComponent<ColliderComponent>().collider, lightBall5.getComponent<ColliderComponent>().collider))
+    {
+        lightBall5.getComponent<AutoComponent>().dirY = -1;
+    }
+    if(Collision::AABB(lim3.getComponent<ColliderComponent>().collider, lightBall5.getComponent<ColliderComponent>().collider))
+    {
+        lightBall5.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(botBorder.getComponent<ColliderComponent>().collider, lightBall5.getComponent<ColliderComponent>().collider))
+    {
+        lightBall5.getComponent<AutoComponent>().dirY = 1;
+    }
+//
+    if(Collision::AABB(rightBorder.getComponent<ColliderComponent>().collider, lightBall7.getComponent<ColliderComponent>().collider))
+    {
+        lightBall7.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(topBorder.getComponent<ColliderComponent>().collider, lightBall7.getComponent<ColliderComponent>().collider))
+    {
+        lightBall7.getComponent<AutoComponent>().dirY = -1;
+    }
+    if(Collision::AABB(lim3.getComponent<ColliderComponent>().collider, lightBall7.getComponent<ColliderComponent>().collider))
+    {
+        lightBall7.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(botBorder.getComponent<ColliderComponent>().collider, lightBall7.getComponent<ColliderComponent>().collider))
+    {
+        lightBall7.getComponent<AutoComponent>().dirY = 1;
+    }
+//
+    if(Collision::AABB(rightBorder.getComponent<ColliderComponent>().collider, lightBall2.getComponent<ColliderComponent>().collider))
+    {
+        lightBall2.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(topBorder.getComponent<ColliderComponent>().collider, lightBall2.getComponent<ColliderComponent>().collider))
+    {
+        lightBall2.getComponent<AutoComponent>().dirY = 1;
+    }
+    if(Collision::AABB(lim3.getComponent<ColliderComponent>().collider, lightBall2.getComponent<ColliderComponent>().collider))
+    {
+        lightBall2.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(botBorder.getComponent<ColliderComponent>().collider, lightBall2.getComponent<ColliderComponent>().collider))
+    {
+        lightBall2.getComponent<AutoComponent>().dirY = -1;
+    }
+//
+    if(Collision::AABB(rightBorder.getComponent<ColliderComponent>().collider, lightBall4.getComponent<ColliderComponent>().collider))
+    {
+        lightBall4.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(topBorder.getComponent<ColliderComponent>().collider, lightBall4.getComponent<ColliderComponent>().collider))
+    {
+        lightBall4.getComponent<AutoComponent>().dirY = 1;
+    }
+    if(Collision::AABB(lim3.getComponent<ColliderComponent>().collider, lightBall4.getComponent<ColliderComponent>().collider))
+    {
+        lightBall4.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(botBorder.getComponent<ColliderComponent>().collider, lightBall4.getComponent<ColliderComponent>().collider))
+    {
+        lightBall4.getComponent<AutoComponent>().dirY = -1;
+    }
+//
+    if(Collision::AABB(rightBorder.getComponent<ColliderComponent>().collider, lightBall6.getComponent<ColliderComponent>().collider))
+    {
+        lightBall6.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(topBorder.getComponent<ColliderComponent>().collider, lightBall6.getComponent<ColliderComponent>().collider))
+    {
+        lightBall6.getComponent<AutoComponent>().dirY = 1;
+    }
+    if(Collision::AABB(lim3.getComponent<ColliderComponent>().collider, lightBall6.getComponent<ColliderComponent>().collider))
+    {
+        lightBall6.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(botBorder.getComponent<ColliderComponent>().collider, lightBall6.getComponent<ColliderComponent>().collider))
+    {
+        lightBall6.getComponent<AutoComponent>().dirY = -1;
+    }
+//
+    if(Collision::AABB(rightBorder.getComponent<ColliderComponent>().collider, lightBall8.getComponent<ColliderComponent>().collider))
+    {
+        lightBall8.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(topBorder.getComponent<ColliderComponent>().collider, lightBall8.getComponent<ColliderComponent>().collider))
+    {
+        lightBall8.getComponent<AutoComponent>().dirY = 1;
+    }
+    if(Collision::AABB(lim3.getComponent<ColliderComponent>().collider, lightBall8.getComponent<ColliderComponent>().collider))
+    {
+        lightBall8.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(botBorder.getComponent<ColliderComponent>().collider, lightBall8.getComponent<ColliderComponent>().collider))
+    {
+        lightBall8.getComponent<AutoComponent>().dirY = -1;
+    }
+//
+    if(Collision::AABB(flash1.getComponent<ColliderComponent>().collider,lim3.getComponent<ColliderComponent>().collider))
+    {
+        flash1.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(flash1.getComponent<ColliderComponent>().collider,rightBorder.getComponent<ColliderComponent>().collider))
+    {
+        flash1.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(flash3.getComponent<ColliderComponent>().collider,lim3.getComponent<ColliderComponent>().collider))
+    {
+        flash3.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(flash3.getComponent<ColliderComponent>().collider,rightBorder.getComponent<ColliderComponent>().collider))
+    {
+        flash3.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(flash4.getComponent<ColliderComponent>().collider,lim3.getComponent<ColliderComponent>().collider))
+    {
+        flash4.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(flash4.getComponent<ColliderComponent>().collider,rightBorder.getComponent<ColliderComponent>().collider))
+    {
+        flash4.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(flash2.getComponent<ColliderComponent>().collider,lim3.getComponent<ColliderComponent>().collider))
+    {
+        flash2.getComponent<AutoComponent>().dirX = 1;
+    }
+    if(Collision::AABB(flash2.getComponent<ColliderComponent>().collider,rightBorder.getComponent<ColliderComponent>().collider))
+    {
+        flash2.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(flash5.getComponent<ColliderComponent>().collider,lim3.getComponent<ColliderComponent>().collider))
+    {
+        flash5.getComponent<AutoComponent>().dirX = -1;
+    }
+    if(Collision::AABB(flash5.getComponent<ColliderComponent>().collider,rightBorder.getComponent<ColliderComponent>().collider))
+    {
+        flash5.getComponent<AutoComponent>().dirX = 1;
+    }
     //q&a
 	//quest 1
     if(Collision::AABB(player.getComponent<ColliderComponent>().collider,rock1.getComponent<ColliderComponent>().collider)&&(!getHint1))
@@ -691,7 +942,10 @@ void Game::update() {
 
     if(onQuest1 == 1)
     {
-        quest1.getComponent<SpriteComponent>().setTex("GUI/quest1.png");
+        if(!turn1){
+            quest1.getComponent<SpriteComponent>().setTex("GUI/quest1.png");
+            turn1=1;
+        }
         hint1.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_6)
         {
@@ -712,7 +966,10 @@ void Game::update() {
 
     if(onQuest2 == 1)
     {
-        quest2.getComponent<SpriteComponent>().setTex("GUI/quest2.png");
+        if(!turn2){
+            quest2.getComponent<SpriteComponent>().setTex("GUI/quest2.png");
+            turn2 = true;
+        }
         hint2.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_2)
         {
@@ -734,7 +991,10 @@ void Game::update() {
 
     if(onQuest3 == 1)
     {
-        quest3.getComponent<SpriteComponent>().setTex("GUI/quest3.png");
+        if(!turn3){
+            quest3.getComponent<SpriteComponent>().setTex("GUI/quest3.png");
+            turn3 = true;
+        }
         hint3.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_0)
         {
@@ -758,15 +1018,16 @@ void Game::update() {
     }
     if(onQuest4 == 1)
     {
-        quest4.getComponent<SpriteComponent>().setTex("GUI/quest4.png");
+        if(!turn4){
+            quest4.getComponent<SpriteComponent>().setTex("GUI/quest4.png");
+            turn4 = true;
+        }
         hint4.getComponent<SpriteComponent>().Free();
         if(event.key.keysym.sym==SDLK_d)
         {
             Mix_PlayChannel(-1,trueMix,0);
-
             quest4.getComponent<SpriteComponent>().Free();
             fence1.getComponent<SpriteComponent>().Free();
-
             can1 = 0;
             onQuest4 = 0;
             getHint4 = 1;
@@ -777,7 +1038,6 @@ void Game::update() {
     if(can4==0)
     {
         gotKey = true;
-        key.getComponent<SpriteComponent>().setTex("GUI/key1.png");
     }
     if(gotKey&&Collision::AABB(player.getComponent<ColliderComponent>().collider, chest.getComponent<ColliderComponent>().collider))
     {
@@ -822,7 +1082,6 @@ void Game::render()
 {
     SDL_RenderClear(renderer);
     manager.draw();
-
     SDL_RenderPresent(renderer);
 }
 void Game::clean()
