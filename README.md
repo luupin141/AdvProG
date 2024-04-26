@@ -13,6 +13,8 @@
   - [Các thành phần trong game:](#các-thành-phần-trong-game)
 - [Cách cài đặt](#cách-cài-đặt)
 - [Về Source Code](#về-source-code)
+- [Tham Khảo](#Tham_Khảo)
+- [Lời kết](#Lời_kết)
 
 # Mô tả
 > Luffy đang bị lạc khỏi băng hải tặc của mình.
@@ -23,7 +25,7 @@
 >
 > Hãy cùng Luffy vượt qua các chướng ngại mà 3 tên Đô đốc tạo ra để khám pha Trái Ác Quỷ đang nằm trong chiếc rương bí ẩn.
 >
-**Xem thêm tại:**
+**Xem thêm tại: [Video_Demo](https://drive.google.com/file/d/1_BOwSZYpDdO6f8XYfjp9TGFUusDnZ3mn/view?usp=drive_link)**
 
 ---
 # Hướng dẫn chơi
@@ -87,8 +89,8 @@
    - Tạo thư mục
    - Mở CommandLine
    - Gõ lệnh `git clone + URL`
-- Hoặc tải file Zip **tại đây** (without srcCode)
 
+- Hoặc tải file Zip **[tại_đây](https://drive.google.com/file/d/1tAsFOijrv8AA1esXb5N2g96sDtpG_Lrz/view?usp=drive_link)** ( srcCode)
 # Về Source Code
 Cụ thể về cấu trúc của game:
 **1. Folder GUI :**
@@ -138,3 +140,10 @@ Cụ thể về cấu trúc của game:
 **10.Anima.h**
 - Định nghĩa class *Anima* để xử lí hoạt ảnh của các vật thể động được triển khai trong SpriteComponent.
 
+# Tham Khảo
+- Big thanks goes out to LazyFoo 's Tutorials Series and Let's Make Game for helping me finish this project.
+  - [LazyFoo](https://lazyfoo.net/tutorials/SDL/)
+  - [Let's Make Game](https://www.youtube.com/watch?v=QQzAHcojEKg&list=PLhfAbcv9cehhkG7ZQK0nfIGJC_C-wSLrx)
+- Sự giúp đỡ, chỉ dạy của các thầy, các mentors và các bạn cùng lớp.
+# Lời kết
+- Cảm ơn vì đã quan tâm !
