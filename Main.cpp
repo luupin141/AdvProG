@@ -6,7 +6,7 @@
 #undef main
 
 
-Game *game = nullptr;
+Game *game = NULL;
 const int FPS = 60;//adjust framerate
 const int frameDelay = 1000/FPS;
 Uint32 frameStart;
@@ -16,6 +16,7 @@ int thoigian = 0;
 
 int main(int argc, const char ** argv)
 {
+
     game = new Game();
     game->init("X", gWidth, gHeight, SDL_WINDOW_SHOWN);//initialize
 

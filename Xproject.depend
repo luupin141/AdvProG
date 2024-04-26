@@ -572,17 +572,14 @@
 1713727024 c:\users\admin\desktop\new folder\advprog\collision.h
 	<SDL.h>
 
-1714090070 source:c:\users\admin\desktop\new folder\advprog\game.cpp
+1714121363 source:c:\users\admin\desktop\new folder\advprog\game.cpp
 	"Game.h"
-	"Text.h"
 	"Textures.h"
 	"ECS.h"
 	"Components.h"
 	"Vector2D.h"
 	"KeyboardHandling.h"
 	"Collision.h"
-	"Tactic.h"
-	"Text.h"
 	"iostream"
 	"vector"
 	"string"
@@ -649,7 +646,7 @@
 	"ECS.h"
 	"Components.h"
 
-1714058993 source:c:\users\admin\desktop\new folder\advprog\main.cpp
+1714118390 source:c:\users\admin\desktop\new folder\advprog\main.cpp
 	"Game.h"
 	"ECS.h"
 	"Components.h"
@@ -679,4 +676,7 @@
 
 1713899144 source:c:\users\admin\desktop\new folder\advprog\text.cpp
 	"Text.h"
+
+1714118280 c:\users\admin\desktop\new folder\advprog\mouse.h
+	"Game.h"
 

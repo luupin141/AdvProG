@@ -1,31 +1,36 @@
 #include"Game.h"
-#include"Text.h"
 #include"Textures.h"
 #include "ECS.h"
 #include "Components.h"
 #include "Vector2D.h"
 #include "KeyboardHandling.h"
 #include "Collision.h"
-#include "Tactic.h"
-#include "Text.h"
 #include "iostream"
 #include "vector"
 #include"string"
 //init elements
+
 int mx = rand()%1228 + 1041;
+
 int my = rand()%490 + 20;
+
 int HP = 5;
+
 int score = 140000;
+
 Vector2D startPos(16,320);
+
 Vector2D ranPos(mx,my);
 
 //mix init
+
 Mix_Chunk *guideMix = NULL;
 Mix_Chunk *menuMix = NULL;
 Mix_Chunk *gameMix = NULL;
 Mix_Chunk *trueMix = NULL;
 Mix_Chunk *hitMix = NULL;
 Mix_Chunk *catchMix = NULL;
+Mix_Chunk *endMix = NULL;
 
 //controller
 bool gameStart = 0;
@@ -53,8 +58,10 @@ bool turn1 = 0;
 bool turn2 = 0;
 bool turn3 = 0;
 bool turn4 = 0;
-
-
+bool gotKb = 0;
+bool gameOver = 0;
+bool over = 0;
+bool victoryMix = 0;
 //
 SDL_Renderer* Game::renderer = nullptr ;
 //
@@ -99,6 +106,7 @@ auto& chest(manager.addEntity());
 auto& pwup(manager.addEntity());
 auto& player(manager.addEntity());
 auto& life(manager.addEntity());
+auto& partner(manager.addEntity());
 auto& medkit1(manager.addEntity());
 auto& medkit2(manager.addEntity());
 auto& medkit3(manager.addEntity());
@@ -156,15 +164,16 @@ auto& hint4(manager.addEntity());
 //menu
 auto& menu(manager.addEntity());
 auto& menu2(manager.addEntity());
-auto& victory(manager.addEntity());
+
 
 //question
 auto& quest1(manager.addEntity());
 auto& quest2(manager.addEntity());
 auto& quest3(manager.addEntity());
 auto& quest4(manager.addEntity());
-
-
+//gameover
+auto& endGame(manager.addEntity());
+int kb = 1;
 
 Game::Game()
 {
@@ -199,18 +208,16 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
         trueMix = Mix_LoadWAV("Mixer/true.wav");
         hitMix = Mix_LoadWAV("Mixer/hit.wav");
         catchMix = Mix_LoadWAV("Mixer/medkit.wav");
+        endMix = Mix_LoadWAV("Mixer/gameover.wav");
 
     }
     else isRunning = false;
-
-
 
     menu.addComponent<TransformComponent>(0,0,gHeight,gWidth,1);
     menu.addComponent<SpriteComponent>("GUI/menu.png");
 
     background.addComponent<TransformComponent>(0, 0, gHeight, gWidth,1);
     background.addComponent<SpriteComponent>("GUI/background.png");
-
 
     player.addComponent<TransformComponent>(16,320,56,32,1);
     player.addComponent<SpriteComponent>("GUI/player.png",1);
@@ -369,7 +376,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     iceSl3.addComponent<TransformComponent>(602,467,50,60,1);
     iceSl3.addComponent<ColliderComponent>("isl_1");
 
-    floatIce1.addComponent<TransformComponent>(848,18,30,30,1);
+    floatIce1.addComponent<TransformComponent>(860,18,30,30,1);
     floatIce1.addComponent<SpriteComponent>("GUI/floatice.png",1);
     floatIce1.addComponent<ColliderComponent>("flIce1");
     floatIce1.addComponent<AutoComponent>(0,2);
@@ -535,7 +542,8 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     fence1.addComponent<SpriteComponent>("GUI/fence1.png");
     fence1.addComponent<ColliderComponent>("fence1");
 
-
+    endGame.addComponent<TransformComponent>(0,0,640,1280,1);
+    endGame.addComponent<SpriteComponent>();
 }
 void Game::handleEvent()
 {
@@ -553,9 +561,13 @@ void Game::handleEvent()
                 menu.getComponent<SpriteComponent>().Free();
                 gameStart = 1;
             }
-            else if (mx>=568&&mx<=717&&my>=495&&my<=528){
+            else if (!gameStart&&mx>=568&&mx<=717&&my>=495&&my<=528){
                 menu.getComponent<SpriteComponent>().setTex("GUI/guide.png");
                 Mix_PlayChannel(-1,guideMix,0);
+            }
+            else if (gameOver&&mx>=537&&mx<=779&&my>=438&&my<=526)
+            {
+                isRunning = false;
             }
             break;
 
@@ -570,7 +582,10 @@ void Game::update() {
 
     score -= 1;
     std::cout<<score<<std::endl;
-
+    if(score==0){
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,"GAME OVER","OUT OF TIME, YOU STARVED TO DEATH",window);
+        isRunning = false;
+    }
 
     //print life
     switch(HP)
@@ -598,12 +613,12 @@ void Game::update() {
     }
 
 
+
     //play mix
     if(!gameStart&&playMenuMix==0){Mix_PlayChannel(-1,menuMix,-1);
         playMenuMix=1;
     }
     else if(gameStart) {
-
         if(!inGame)Mix_HaltChannel(-1);
         inGame = 1;
         if(!playGameMix)
@@ -611,10 +626,16 @@ void Game::update() {
             Mix_PlayChannel(-1,gameMix,-1);
             playGameMix = 1;
         }
-
-
-
     }
+    else if(gameOver) {
+        if(!over)Mix_HaltChannel(-1);
+        over = 1;
+        if(!victoryMix){
+            Mix_PlayChannel(-1,endMix,-1);
+            victoryMix = 1;
+        }
+    }
+
 
     //lava collision
     if(Collision::AABB(lava4.getComponent<ColliderComponent>().collider,grass7.getComponent<ColliderComponent>().collider))
@@ -745,12 +766,14 @@ void Game::update() {
         player.getComponent<TransformComponent>().position = ranPos;
     }
 
-    if(Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall1.getComponent<ColliderComponent>().collider)
+    if(!gameOver&&(Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall1.getComponent<ColliderComponent>().collider)
        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall2.getComponent<ColliderComponent>().collider)
        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall3.getComponent<ColliderComponent>().collider)
        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall4.getComponent<ColliderComponent>().collider)
        ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall5.getComponent<ColliderComponent>().collider)
-       ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall6.getComponent<ColliderComponent>().collider))
+       ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall6.getComponent<ColliderComponent>().collider)
+       ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall7.getComponent<ColliderComponent>().collider)
+       ||Collision::AABB(player.getComponent<ColliderComponent>().collider, lightBall8.getComponent<ColliderComponent>().collider)))
     {
         Mix_PlayChannel(-1,hitMix,0);
         player.getComponent<TransformComponent>().position = startPos;
@@ -1039,11 +1062,18 @@ void Game::update() {
     {
         gotKey = true;
     }
-    if(gotKey&&Collision::AABB(player.getComponent<ColliderComponent>().collider, chest.getComponent<ColliderComponent>().collider))
+    if(!gameOver&&gotKey&&Collision::AABB(player.getComponent<ColliderComponent>().collider, chest.getComponent<ColliderComponent>().collider))
     {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT,"CONGRATULATION","YOU WIN",window);
-        isRunning = false;
+        if(kb==1)
+            endGame.getComponent<SpriteComponent>().setTex("GUI/khobau1.png");
+        else if(kb==2)
+            endGame.getComponent<SpriteComponent>().setTex("GUI/khobau2.png");
+        else if(kb==3)
+            endGame.getComponent<SpriteComponent>().setTex("GUI/khobau3.png");
+        gameOver = 1;
     }
+
+
     //common collide
 	if (  Collision::AABB(player.getComponent<ColliderComponent>().collider, botBorder.getComponent<ColliderComponent>().collider)
         ||Collision::AABB(player.getComponent<ColliderComponent>().collider, topBorder.getComponent<ColliderComponent>().collider)

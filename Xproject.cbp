@@ -54,11 +54,7 @@
 		<Unit filename="Game.h" />
 		<Unit filename="KeyboardHandling.h" />
 		<Unit filename="Main.cpp" />
-		<Unit filename="Object.cpp" />
-		<Unit filename="Object.h" />
 		<Unit filename="SpriteComponent.h" />
-		<Unit filename="Text.cpp" />
-		<Unit filename="Text.h" />
 		<Unit filename="Textures.cpp" />
 		<Unit filename="Textures.h" />
 		<Unit filename="TransformComponent.h" />
