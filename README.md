@@ -1,18 +1,11 @@
+
 # **Game assignment for AdvProg-23/24**
 ---
 ![theme](GUI/menu.png)
 
 # XPLORER - ONE PIECE EDITION
-# **Mục Lục**
-- [0. Giới thiệu](#0-Giới-thiệu)
 
-- [1. Các thành phần trong game:](#3-các-thành-phần-trong-game)
-- [2. Cách chơi](#4-cách-chơi)
 
-# - GIỚI THIỆU:
-=======
-
-# XPLORER - ONE PIECE EDITION
 # Mục Lục
 - [**Game assignment for AdvProg-23/24**](#game-assignment-for-advprog-2324)
 - [XPLORER - ONE PIECE EDITION](#xplorer---one-piece-edition)
@@ -53,8 +46,10 @@
 ***1. Điều khiển***
 ![keys](GUI/cursor.png)
 - Dùng các phím mũi tên UP, DOWN, LEFT, RIGHT để di chuyển nhân vật.
+
 ![Dkey](GUI/d.png)
 - Nhấn giữ phím `D` để tăng tốc.
+
 ***2.Lối chơi***
 ![scroll](GUI/scroll.png)
 - Trên bản đồ có những cuộn cổ tự, di chuyển nhân vật đến đó và trả lời những câu đố trong cuộn giấy đó để nhận được các mảnh chìa khóa.
@@ -83,10 +78,11 @@
   ![magma](GUI/lava.png)
 - Nóng chảy: Biến mặt đất dưới chân Luffy thành Magma siêu nóng.
   ![lava](GUI/lava_.png)
+  
 ***2.Chim xanh (Kuzan/Aokiji)***
 ![kuzan](GUI/Kuzan.png)
 - Với sức mạnh của trái `Hơi Lạnh`, hắn có thể điều khiển các khối băng tuyết tấn công Luffy.
-- 
+
 - Gai băng: Các khối băng sắc nhọn mọc để tấn công Luffy.
   ![Frost](GUI/frost.png)
 - Băng trơn: Biến mặt đất dưới chân Luffy thành mặt băng trơn trượt
@@ -95,6 +91,7 @@
   ![sp](GUI/icespell.png)
  - Băng đạn: Các viên đạn băng có thể di chuyển để tấn công Luffy
   ![fr](GUI/floatice.png)
+  
 ***3.Khỉ vàng (Kizaru/Bosalino)***
 - Với sức mạnh cảu trái `Ánh Sáng`, hắn có thể dùng chúng tấn công Luffy làm cậu choáng váng và di chuyển lung tung.
 
@@ -113,6 +110,7 @@
 - Hoặc tải file Zip **[tại_đây](https://drive.google.com/file/d/1tAsFOijrv8AA1esXb5N2g96sDtpG_Lrz/view?usp=drive_link)** ( srcCode)
 # Về Source Code
 Cụ thể về cấu trúc của game:
+
 **1. Folder GUI :**
 - Lưu trữ các file ảnh png đã sử dụng.
 
