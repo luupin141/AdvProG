@@ -67,7 +67,7 @@
     - *Trái Heart* - *Ope Ope*:
   ![t2](GUI/khobau2.png)
     - Đặc biệt là trái *Gomu Gomu no Mi* (Trái Main) với sức mạnh vô cùng hợp logic (**logic anime**) nhờ bộ não của tác giả Oda 
-  ![t3](Gui/khobau3.png)
+  ![t3](GUI/khobau3.png)
 
 ## Các thành phần trong game:
 ***1.Chó đỏ (AKAINU)***
