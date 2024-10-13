@@ -29,10 +29,7 @@
 > Trong hành trình ấy, Luffy vô tình chạm trán với 3 Đô đốc Hải quân đang bảo vệ *"Two Piece".
 >
 > Hãy cùng Luffy vượt qua các chướng ngại mà 3 tên Đô đốc tạo ra để khám pha Trái Ác Quỷ đang nằm trong chiếc rương bí ẩn.
-### - Cách chơi: 
-   -Điều khiển:
 
-   -Các element block: 
 =======
 > Trong hành trình ấy, Luffy vô tình chạm trán với 3 Đô đốc Hải quân đang bảo vệ *"Two Piece"*.
 >
